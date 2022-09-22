@@ -1,0 +1,14 @@
+h1 {
+    margin: auto;
+    text-align: center;
+    font-size: 3em;
+}
+
+#game-container {
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    
+}
