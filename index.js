@@ -4,7 +4,10 @@ const ctx = canvas.getContext('2d')
 canvas.width = 720
 canvas.height = 840
 
-var gravity = 1
+const refreshRate = 60
+var gravity = 3
+
+var diskAssembly = []
 
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
@@ -56,7 +59,7 @@ const detonatorBlue = new Detonator ({
 })
 
 function animate() {
-    setTimeout(function () {window.requestAnimationFrame(animate)}, 1000/60) //60 fps
+    setTimeout(function () {window.requestAnimationFrame(animate)}, 1000/refreshRate) //60 fps
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -72,6 +75,10 @@ function animate() {
     detonatorRed.render()
     detonatorGreen.render()
     detonatorBlue.render()
+
+    diskAssembly.forEach((disk)=> {
+        disk.update()
+    })
 }
 
 animate()
