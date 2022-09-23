@@ -23,6 +23,7 @@ window.addEventListener('keypress', (event) => {
             spawnDisk('#DB3324')
             break;
         case 'a':
+            if (diskAssembly.red.length === 0) { return }
             diskAssembly.red[0].detonate()
             break;
     }

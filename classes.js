@@ -93,6 +93,8 @@ class Disk extends Sprite {
 
         this.velocity = velocity
         this.hasPassed = false
+        this.gotErased = false
+        this.gotHit = false
     }
 
     render() {
@@ -108,43 +110,52 @@ class Disk extends Sprite {
     update() {
         if (this.position.y + 25 > detonatorRed.position.y + detonatorRed.height - 25 && !this.hasPassed) {
             this.diskHasPassed()
-            console.log('PASSED')
         }
 
-        if (this.position.y > 840/*canvas.height*/) {
+        if (!this.gotErased && this.position.y > 840/*canvas.height*/) {
             this.eraseDisk()
         }
-
-
 
         this.render()
         this.position.y += gravity
     }
 
     detonate() {
-        if (diskAssembly.red.length === 0) { return }
-        if (this.position.y - 50 + this.height > detonatorRed.position.y &&
+        if (!this.gotHit &&
+            this.position.y - 50 + this.height > detonatorRed.position.y &&
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
-            console.log(this.position.y)
-            console.log(detonatorRed.position.y)
+            this.diskGotHit()
         } else {
-            console.log('MISS')
+            this.diskMissed()
         }
+    }
+
+    diskGotHit() {
+        this.gotHit = true
+        this.color = '#FFFFFF'
+        this.color += '25'
+        console.log(this.position.y)
+        console.log(detonatorRed.position.y)
+    }
+
+    diskMissed() {
+        console.log('MISS')
     }
 
     diskHasPassed() {
         this.hasPassed = true
-            switch (this.color) {
-                case '#DB3324':
-                    missedDisks.push(diskAssembly.red.shift())
-                    break;
-                case '#24DB33':
-                    missedDisks.push(diskAssembly.green.shift())
-                    break;
-                case '#3324DB':
-                    missedDisks.push(diskAssembly.blue.shift())
-                    break;
-            }
+        switch (this.color) {
+            case '#DB3324':
+                missedDisks.push(diskAssembly.red.shift())
+                break;
+            case '#24DB33':
+                missedDisks.push(diskAssembly.green.shift())
+                break;
+            case '#3324DB':
+                missedDisks.push(diskAssembly.blue.shift())
+                break;
+        }
+        // console.log('PASSED')
     }
 
     eraseDisk() {
@@ -159,6 +170,7 @@ class Disk extends Sprite {
                 missedDisks.shift()
                 break;
         }
-        console.log('ERASED')
+        this.gotErased = true
+        // console.log('ERASED')
     }
 }
