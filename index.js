@@ -2,12 +2,17 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 canvas.width = 720
-canvas.height = 840
+// canvas.height = 840
+canvas.height = 1000
 
 const refreshRate = 60
 var gravity = 3
 
-var diskAssembly = []
+var diskAssembly = {
+    red: [],
+    green: [],
+    blue: []
+}
 
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
@@ -66,8 +71,6 @@ function animate() {
     ctx.fillStyle = 'black'
     ctx.fillRect(0,0,canvas.width,canvas.height)
 
-    console.log(gravity)
-
     runwayRed.update()
     runwayGreen.update()
     runwayBlue.update()
@@ -76,9 +79,10 @@ function animate() {
     detonatorGreen.render()
     detonatorBlue.render()
 
-    diskAssembly.forEach((disk)=> {
+    diskAssembly.red.forEach((disk)=> {
         disk.update()
     })
+
 }
 
 animate()

@@ -29,7 +29,7 @@ class Runway extends Sprite {
         height,
         color
     }) {
-        super ({
+        super({
             position,
             width,
             height,
@@ -40,7 +40,7 @@ class Runway extends Sprite {
 
     render() {
         ctx.lineWidth = 5
-        ctx.fillStyle = this.color+'50'
+        ctx.fillStyle = this.color + '50'
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         ctx.strokeStyle = this.color
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
@@ -55,7 +55,7 @@ class Detonator extends Sprite {
         height,
         color
     }) {
-        super ({
+        super({
             position,
             width,
             height,
@@ -67,10 +67,10 @@ class Detonator extends Sprite {
     render() {
         ctx.lineWidth = 5
         ctx.strokeStyle = this.color
-        ctx.fillStyle = this.color+'40'
+        ctx.fillStyle = this.color + '40'
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
         ctx.beginPath()
-        ctx.arc(this.position.x + this.width/2, this.position.y + this.height/2, this.width/3, 0, Math.PI * 2, true)
+        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 3, 0, Math.PI * 2, true)
         ctx.stroke()
         ctx.fill()
     }
@@ -97,13 +97,28 @@ class Disk extends Sprite {
     spawn() {
         ctx.strokeStyle = this.color
         ctx.fillStyle = this.color
+        ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
         ctx.beginPath()
-        ctx.arc(this.position.x + this.width/2, this.position.y + this.height/2, this.width/3, 0, Math.PI * 2, true)
+        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 3, 0, Math.PI * 2, true)
         ctx.stroke()
         ctx.fill()
     }
 
     update() {
+        if (this.position.y > 840/*canvas.height*/) {
+            switch (this.color) {
+                case 'red':
+                    diskAssembly.red.shift()
+                    break;
+                case 'green':
+                    diskAssembly.red.shift()
+                    break;
+                case 'blue':
+                    diskAssembly.red.shift()
+                    break;
+            }
+        }
+
         this.spawn()
         this.position.y += gravity
     }
