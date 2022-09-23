@@ -5,7 +5,7 @@ canvas.width = 720
 // canvas.height = 840
 canvas.height = 1000
 
-const refreshRate = 60
+const refreshRate = 30
 var gravity = 3
 
 var diskAssembly = {
@@ -14,7 +14,9 @@ var diskAssembly = {
     blue: []
 }
 
-const triColors = ['#DB3324', '#24DB33', '#3324DB']
+var missedDisks = []
+
+const triColors = ['#DB3324', '#24DB33', '#3324DB'] //red, green, blue
 
 const runwayRed = new Runway({
     position: {x: 125, y: 100},
@@ -80,6 +82,10 @@ function animate() {
     detonatorBlue.render()
 
     diskAssembly.red.forEach((disk)=> {
+        disk.update()
+    })
+
+    missedDisks.forEach((disk)=> {
         disk.update()
     })
 
