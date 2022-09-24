@@ -6,7 +6,7 @@ canvas.width = 720
 canvas.height = 1000
 
 const refreshRate = 60
-var gravity = 2
+var gravity = 3
 
 var diskAssembly = {
     red: [],
@@ -27,7 +27,7 @@ const runwayRed = new Runway({
 })
 const runwayGreen = new Runway({
     position: { x: 285, y: 100 },
-    width: 150,
+    width: 150, 
     height: 550,
     color: triColors[1]
 })
