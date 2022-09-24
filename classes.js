@@ -91,6 +91,8 @@ class Disk extends Sprite {
             color
         })
 
+        this.width = 150
+        this.height = 150
         this.hasPassed = false
         this.gotErased = false
         this.gotHit = false
@@ -99,13 +101,9 @@ class Disk extends Sprite {
     }
 
     render() {
-        // ctx.strokeStyle = this.color
         ctx.fillStyle = this.color
-        // ctx.lineWidth = 5
-        // ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
         ctx.beginPath()
         ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 3, 0, Math.PI * 2, true)
-        // ctx.stroke()
         ctx.fill()
     }
 

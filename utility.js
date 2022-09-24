@@ -1,15 +1,42 @@
-function spawnDisk(id, color,) {
+function spawnDisk(id) {
+    let colorHex
+    let columnPosX
+
+    switch (id) {
+        case 'red':
+            colorHex = triColors[0]
+            columnPosX = runwayRed.position.x
+            break;
+        case 'green':
+            colorHex = triColors[1]
+            columnPosX = runwayGreen.position.x
+            break;
+        case 'blue':
+            colorHex = triColors[2]
+            columnPosX = runwayBlue.position.x
+            break;
+    }
+
     let disk = new Disk({
         position: {
-            x: 125,
+            x: columnPosX,
             y: -75
         },
-        width: 150,
-        height: 150,
-        color: color,
+        color: colorHex,
         id: id
     })
-    diskAssembly.red.push(disk)
+
+    switch (id) {
+        case 'red':
+            diskAssembly.red.push(disk)
+            break;
+        case 'green':
+            diskAssembly.green.push(disk)
+            break;
+        case 'blue':
+            diskAssembly.blue.push(disk)
+            break;
+    }
 }
 
 function diskMissed() {
@@ -18,20 +45,64 @@ function diskMissed() {
 
 window.addEventListener('keypress', (event) => {
     switch (event.key) {
+        
+        // Game Dev buttons
         case '1':
-            spawnDisk('red', '#DB3324')
+            spawnDisk('red')
+            break;
+        case '2':
+            spawnDisk('green')
+            break;
+        case '3':
+            spawnDisk('blue')
             break;
         case '4':
             setInterval(() => {
-                spawnDisk('red', '#DB3324')
-            }, 4000/gravity);
+                spawnDisk('red')
+            }, 4000 / gravity);
             break;
+        case '4':
+            setInterval(() => {
+                spawnDisk('red')
+            }, 4000 / gravity);
+            break;
+        case '4':
+            setInterval(() => {
+                spawnDisk('red')
+            }, 4000 / gravity);
+            break;
+        case '5':
+            setInterval(() => {
+                spawnDisk('green')
+            }, 4000 / gravity);
+            break;
+        case '6':
+            setInterval(() => {
+                spawnDisk('blue')
+            }, 4000 / gravity);
+            break;
+
+        // Regular Game Buttons
         case 'a':
             if (diskAssembly.red.length === 0) {
                 diskMissed()
-                return
+            } else {
+                diskAssembly.red[0].detonate()
             }
-            diskAssembly.red[0].detonate()
+            break;
+        case 's':
+            if (diskAssembly.green.length === 0) {
+                diskMissed()
+            } else {
+                diskAssembly.green[0].detonate()
+            }
+            break;
+        case 'd':
+            if (diskAssembly.blue.length === 0) {
+                diskMissed()
+            } else {
+                diskAssembly.blue[0].detonate()
+            }
             break;
     }
 })

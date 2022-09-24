@@ -2,7 +2,6 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 canvas.width = 720
-// canvas.height = 840
 canvas.height = 1000
 
 const refreshRate = 60
@@ -13,11 +12,11 @@ var diskAssembly = {
     green: [],
     blue: []
 }
-
 var hitDisks = []
 var missedDisks = []
 
-const triColors = ['#DB3324', '#24DB33', '#3324DB'] //red, green, blue
+//red, green, blue
+const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
 const runwayRed = new Runway({
     position: { x: 125, y: 100 },
@@ -27,7 +26,7 @@ const runwayRed = new Runway({
 })
 const runwayGreen = new Runway({
     position: { x: 285, y: 100 },
-    width: 150, 
+    width: 150,
     height: 550,
     color: triColors[1]
 })
@@ -85,6 +84,12 @@ function animate() {
     diskAssembly.red.forEach((disk) => {
         disk.update()
     })
+    diskAssembly.green.forEach((disk) => {
+        disk.update()
+    })
+    diskAssembly.blue.forEach((disk) => {
+        disk.update()
+    })
 
     hitDisks.forEach((disk) => {
         disk.update()
@@ -97,7 +102,3 @@ function animate() {
 }
 
 animate()
-
-// setInterval(() => {
-//     spawnDisk('red', '#DB3324')
-// }, 1500);
