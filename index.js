@@ -5,8 +5,8 @@ canvas.width = 720
 // canvas.height = 840
 canvas.height = 1000
 
-const refreshRate = 30
-var gravity = 3
+const refreshRate = 60
+var gravity = 2
 
 var diskAssembly = {
     red: [],
@@ -14,30 +14,31 @@ var diskAssembly = {
     blue: []
 }
 
+var hitDisks = []
 var missedDisks = []
 
 const triColors = ['#DB3324', '#24DB33', '#3324DB'] //red, green, blue
 
 const runwayRed = new Runway({
-    position: {x: 125, y: 100},
+    position: { x: 125, y: 100 },
     width: 150,
     height: 550,
     color: triColors[0]
 })
 const runwayGreen = new Runway({
-    position: {x: 285, y: 100},
+    position: { x: 285, y: 100 },
     width: 150,
     height: 550,
     color: triColors[1]
 })
 const runwayBlue = new Runway({
-    position: {x: 445, y: 100},
+    position: { x: 445, y: 100 },
     width: 150,
     height: 550,
     color: triColors[2]
 })
 
-const detonatorRed = new Detonator ({
+const detonatorRed = new Detonator({
     position: {
         x: runwayRed.position.x,
         y: runwayRed.position.y + 560
@@ -46,7 +47,7 @@ const detonatorRed = new Detonator ({
     height: runwayRed.width,
     color: triColors[0]
 })
-const detonatorGreen = new Detonator ({
+const detonatorGreen = new Detonator({
     position: {
         x: runwayGreen.position.x,
         y: runwayGreen.position.y + 560
@@ -55,7 +56,7 @@ const detonatorGreen = new Detonator ({
     height: runwayGreen.width,
     color: triColors[1]
 })
-const detonatorBlue = new Detonator ({
+const detonatorBlue = new Detonator({
     position: {
         x: runwayBlue.position.x,
         y: runwayBlue.position.y + 560
@@ -66,29 +67,37 @@ const detonatorBlue = new Detonator ({
 })
 
 function animate() {
-    setTimeout(function () {window.requestAnimationFrame(animate)}, 1000/refreshRate) //60 fps
+    setTimeout(function () { window.requestAnimationFrame(animate) }, 1000 / refreshRate) //60 fps
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.fillStyle = 'black'
-    ctx.fillRect(0,0,canvas.width,canvas.height)
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-    runwayRed.update()
-    runwayGreen.update()
-    runwayBlue.update()
+    runwayRed.render()
+    runwayGreen.render()
+    runwayBlue.render()
 
     detonatorRed.render()
     detonatorGreen.render()
     detonatorBlue.render()
 
-    diskAssembly.red.forEach((disk)=> {
+    diskAssembly.red.forEach((disk) => {
         disk.update()
     })
 
-    missedDisks.forEach((disk)=> {
+    hitDisks.forEach((disk) => {
+        disk.update()
+    })
+
+    missedDisks.forEach((disk) => {
         disk.update()
     })
 
 }
 
 animate()
+
+// setInterval(() => {
+//     spawnDisk('red', '#DB3324')
+// }, 1500);

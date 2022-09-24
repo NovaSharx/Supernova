@@ -4,15 +4,16 @@ function ctxReset() {
     ctx.strokeStyle = 'black'
 }
 
-function spawnDisk(color) {
+function spawnDisk(id, color,) {
     let disk = new Disk({
         position: {
             x: 125,
-            y: 500/*-75*/
+            y: 300 /*-75*/
         },
         width: 150,
         height: 150,
-        color: color
+        color: color,
+        id: id
     })
     diskAssembly.red.push(disk)
 }
@@ -20,7 +21,7 @@ function spawnDisk(color) {
 window.addEventListener('keypress', (event) => {
     switch(event.key) {
         case '1':
-            spawnDisk('#DB3324')
+            spawnDisk('red', '#DB3324')
             break;
         case 'a':
             if (diskAssembly.red.length === 0) { return }
