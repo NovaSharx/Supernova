@@ -5,7 +5,7 @@ canvas.width = 720
 canvas.height = 1000
 
 const refreshRate = 60
-var gravity = 3
+var gravity = 5
 
 var diskAssembly = {
     red: [],

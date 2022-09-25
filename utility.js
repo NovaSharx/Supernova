@@ -39,13 +39,32 @@ function spawnDisk(id) {
     }
 }
 
+function randomDiskSpawner() {
+    setInterval(() => {
+        let random = Math.floor(Math.random() * 3)
+        let id
+        switch (random) {
+            case 0:
+                id = 'red'
+                break;
+            case 1:
+                id = 'green'
+                break;
+            case 2:
+                id = 'blue'
+                break;
+        }
+        spawnDisk(id)
+    }, 4000 / gravity)
+}
+
 function diskMissed() {
     console.log('MISS!')
 }
 
 window.addEventListener('keypress', (event) => {
     switch (event.key) {
-        
+
         // Game Dev buttons
         case '1':
             spawnDisk('red')
@@ -61,16 +80,6 @@ window.addEventListener('keypress', (event) => {
                 spawnDisk('red')
             }, 4000 / gravity);
             break;
-        case '4':
-            setInterval(() => {
-                spawnDisk('red')
-            }, 4000 / gravity);
-            break;
-        case '4':
-            setInterval(() => {
-                spawnDisk('red')
-            }, 4000 / gravity);
-            break;
         case '5':
             setInterval(() => {
                 spawnDisk('green')
@@ -80,6 +89,9 @@ window.addEventListener('keypress', (event) => {
             setInterval(() => {
                 spawnDisk('blue')
             }, 4000 / gravity);
+            break;
+        case '0':
+            randomDiskSpawner()
             break;
 
         // Regular Game Buttons
