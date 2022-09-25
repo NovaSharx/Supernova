@@ -102,6 +102,9 @@ function animate() {
         disk.update()
     })
 
+    ctx.fillStyle = 'black'
+    ctx.fillRect(runwayRed.position.x - 3, 0, runwayRed.width * 3 + 26, runwayRed.position.y - 2)
+
 }
 
 animate()
