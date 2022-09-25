@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 canvas.width = 720
-canvas.height = 1000
+canvas.height = 900
 
 const refreshRate = 60
 var gravity = 5
@@ -102,8 +102,7 @@ function animate() {
         disk.update()
     })
 
-    ctx.fillStyle = 'black'
-    ctx.fillRect(runwayRed.position.x - 3, 0, runwayRed.width * 3 + 26, runwayRed.position.y - 2)
+    renderSpawningMask()
 
 }
 

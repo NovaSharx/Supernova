@@ -1,3 +1,8 @@
+function renderSpawningMask() {
+    ctx.fillStyle = 'black'
+    ctx.fillRect(runwayRed.position.x - 3, 0, runwayRed.width * 3 + 26, runwayRed.position.y - 2)
+}
+
 function spawnDisk(id) {
     let colorHex
     let columnPosX
@@ -60,6 +65,7 @@ function randomDiskSpawner() {
 
 function diskMissed() {
     console.log('MISS!')
+    //lostStreak()
 }
 
 window.addEventListener('keypress', (event) => {
