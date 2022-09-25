@@ -6,6 +6,9 @@ canvas.height = 1000
 
 const refreshRate = 60
 var gravity = 5
+var accuracyCount = 0
+var accuracySum = 0
+var averageAccuracy = 0
 
 var diskAssembly = {
     red: [],

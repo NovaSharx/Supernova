@@ -123,6 +123,7 @@ class Disk extends Sprite {
     }
 
     detonate() {
+        accuracyCount++
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
@@ -133,7 +134,7 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
-        console.log('HIT!')
+        this.processAccuracy()
         this.gotHit = true
         this.color = '#FFFFFF25'
         let target
@@ -155,7 +156,19 @@ class Disk extends Sprite {
         }, 0)
     }
 
+    processAccuracy() {
+        let offset = Math.abs(this.position.y - detonatorRed.position.y)
+        let percentage = Math.round(((95 - offset) / 95) * 100)
+
+        accuracySum += percentage
+        averageAccuracy = Math.round(accuracySum / accuracyCount)
+
+        console.log(percentage)
+        console.log(averageAccuracy)
+    }
+
     diskHasPassed() {
+        accuracyCount++
         this.hasPassed = true
         if (!this.gotHit) {
             this.color += '50'
