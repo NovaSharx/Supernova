@@ -5,10 +5,16 @@ canvas.width = 720
 canvas.height = 900
 
 const refreshRate = 60
-var gravity = 5 //max gravity should be 15
+
+const scoreDisplay = document.getElementById('score')
+
+var gravity = 5 //max gravity should be 20
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
+
+var streakCounter = 0
+var currentScore = 0
 
 var diskAssembly = {
     red: [],
@@ -75,6 +81,8 @@ function animate() {
 
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    updateScore()
 
     runwayRed.render()
     runwayGreen.render()

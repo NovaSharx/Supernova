@@ -61,7 +61,11 @@ function randomDiskSpawner() {
 
 function diskMissed() {
     console.log('MISS!')
-    //lostStreak()
+    streakCounter = 0
+}
+
+function updateScore() {
+    scoreDisplay.innerHTML = currentScore
 }
 
 window.addEventListener('keypress', (event) => {

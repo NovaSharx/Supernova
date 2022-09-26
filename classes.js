@@ -141,6 +141,7 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
+        streakCounter++
         this.processAccuracy()
         this.gotHit = true
         let target
@@ -169,18 +170,18 @@ class Disk extends Sprite {
         accuracySum += percentage
         averageAccuracy = Math.round(accuracySum / accuracyCount)
 
-        console.log(percentage)
-        console.log(averageAccuracy)
-        console.log('...')
-
         if (percentage >= 93) {
             this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
+            currentScore += 100
         } else if (percentage >= 80) {
             this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
+            currentScore += 65
         } else if (percentage >= 50) {
             this.image.src = `./Assets/Images/Accuracy_GOOD.png`
+            currentScore += 25
         } else {
             this.image.src = `./Assets/Images/Accuracy_MEH.png`
+            currentScore += 10
         }
     }
 
