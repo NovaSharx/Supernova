@@ -4,20 +4,16 @@ function renderSpawningMask() {
 }
 
 function spawnDisk(id) {
-    let colorHex
     let columnPosX
 
     switch (id) {
         case 'red':
-            colorHex = triColors[0]
             columnPosX = runwayRed.position.x
             break;
         case 'green':
-            colorHex = triColors[1]
             columnPosX = runwayGreen.position.x
             break;
         case 'blue':
-            colorHex = triColors[2]
             columnPosX = runwayBlue.position.x
             break;
     }
@@ -27,7 +23,7 @@ function spawnDisk(id) {
             x: columnPosX,
             y: -75
         },
-        color: colorHex,
+        imageSrc: `./Assets/Images/Disk_${id}.png`,
         id: id
     })
 

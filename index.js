@@ -5,7 +5,7 @@ canvas.width = 720
 canvas.height = 900
 
 const refreshRate = 60
-var gravity = 5
+var gravity = 5 //max gravity should be 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0

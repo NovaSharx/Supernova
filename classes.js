@@ -1,15 +1,17 @@
 class Sprite {
     constructor({
         position,
-        color,
         width,
         height,
-        imageSrc
+        image,
+        imageSrc,
+        color
     }) {
         this.position = position
         this.color = color
         this.width = width
         this.height = height
+        this.image = new Image()
         this.imageSrc = imageSrc
     }
 
@@ -35,11 +37,12 @@ class Runway extends Sprite {
             height,
             color
         })
+        this.strokeStrength = 5
 
     }
 
     render() {
-        ctx.lineWidth = 5
+        ctx.lineWidth = this.strokeStrength
         ctx.fillStyle = this.color + '50'
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         ctx.strokeStyle = this.color
@@ -81,30 +84,34 @@ class Disk extends Sprite {
         position,
         width,
         height,
-        color,
+        imageSrc,
         id
     }) {
         super({
             position,
             width,
             height,
-            color
         })
 
+        this.image = new Image()
+        this.image.src = imageSrc
         this.width = 150
         this.height = 150
         this.hasPassed = false
         this.gotErased = false
         this.gotHit = false
         this.id = id
-        this.index = null
     }
 
     render() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 3, 0, Math.PI * 2, true)
-        ctx.fill()
+        //image to be drawn
+        ctx.drawImage(
+            this.image,
+            //coordinates to drawn
+            this.position.x, this.position.y,
+            //width and height
+            this.width, this.height
+        )
     }
 
     update() {
@@ -136,7 +143,6 @@ class Disk extends Sprite {
     diskGotHit() {
         this.processAccuracy()
         this.gotHit = true
-        this.color = '#FFFFFF25'
         let target
         setTimeout(() => {
             switch (this.id) {
@@ -165,13 +171,24 @@ class Disk extends Sprite {
 
         console.log(percentage)
         console.log(averageAccuracy)
+        console.log('...')
+
+        if (percentage >= 93) {
+            this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
+        } else if (percentage >= 80) {
+            this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
+        } else if (percentage >= 50) {
+            this.image.src = `./Assets/Images/Accuracy_GOOD.png`
+        } else {
+            this.image.src = `./Assets/Images/Accuracy_MEH.png`
+        }
     }
 
     diskHasPassed() {
         accuracyCount++
         this.hasPassed = true
         if (!this.gotHit) {
-            this.color += '50'
+            this.image.src = `./Assets/Images/Missed_Disk_${this.id}.png`
         }
         let target
         setTimeout(() => {
