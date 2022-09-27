@@ -1,6 +1,6 @@
 function renderSpawningMask() {
     ctx.fillStyle = 'black'
-    ctx.fillRect(gameplayDetails.position.x - 3, 0, gameplayDetails.runwayWidth * 3 + 26, gameplayDetails.position.y - 2)
+    ctx.fillRect(runwayRed.position.x - 3, 0, gameplayDetails.runwayWidth * 3 + gameplayDetails.runwayOffset * 3, gameplayDetails.position.y - 2)
 }
 
 function spawnDisk(id) {

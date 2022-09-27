@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-canvas.width = 720
+canvas.width = 900
 canvas.height = 900
 
 const refreshRate = 60
@@ -12,7 +12,7 @@ const streakMultiplierDisplay = document.getElementById('streakmultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 5 //gravity should be from 5 to 20 i.e lvl 1 to 15
+var gravity = 10 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
@@ -29,7 +29,7 @@ var diskAssembly = {
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
 const gameplayDetails = {
-    position: {x: null, y: 175},
+    position: {x: null, y: 125},
     runwayWidth: 150,
     runwayHeight: 500,
     runwayOffset: 10
@@ -124,8 +124,6 @@ function animate() {
     })
 
     renderSpawningMask()
-
-    console.log()
 }
 
 animate()

@@ -3,20 +3,24 @@ class Sprite {
         position,
         width,
         height,
-        image,
         imageSrc,
-        color
     }) {
         this.position = position
-        this.color = color
         this.width = width
         this.height = height
         this.image = new Image()
-        this.imageSrc = imageSrc
+        // this.image.src = imageSrc
     }
 
     render() {
-        console.log('hi')
+        //image to be drawn
+        ctx.drawImage(
+            this.image,
+            //coordinates to drawn
+            this.position.x, this.position.y,
+            //width and height
+            this.width, this.height
+        )
     }
 
     update() {
@@ -29,14 +33,19 @@ class Runway extends Sprite {
         position,
         width,
         height,
-        color
+        color,
+        imageSrc
     }) {
         super({
             position,
             width,
             height,
-            color
+            imageSrc
         })
+
+        this.image = new Image()
+        // this.image.src = imageSrc
+        this.color = color
         this.strokeStrength = 5
         this.powerBar = 0
     }
@@ -48,7 +57,6 @@ class Runway extends Sprite {
         ctx.strokeStyle = this.color
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
     }
-
 }
 
 class Detonator extends Sprite {
@@ -56,15 +64,19 @@ class Detonator extends Sprite {
         position,
         width,
         height,
-        color
+        color,
+        imageSrc
     }) {
         super({
             position,
             width,
             height,
-            color
+            imageSrc
         })
 
+        this.image = new Image()
+        // this.image.src = imageSrc
+        this.color = color
     }
 
     render() {
@@ -91,6 +103,7 @@ class Disk extends Sprite {
             position,
             width,
             height,
+            imageSrc,
         })
 
         this.image = new Image()
@@ -101,17 +114,6 @@ class Disk extends Sprite {
         this.gotErased = false
         this.gotHit = false
         this.id = id
-    }
-
-    render() {
-        //image to be drawn
-        ctx.drawImage(
-            this.image,
-            //coordinates to drawn
-            this.position.x, this.position.y,
-            //width and height
-            this.width, this.height
-        )
     }
 
     update() {
