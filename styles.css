@@ -34,27 +34,11 @@ canvas {
 
 #ui-container {
     position: absolute;
-    width: 720px;
+    width: 900px;
     height: 900px;
 }
 
-#streak-display {
-    display: inline-block;
-    width: 125px;
-    margin: 30px 0px;
-    text-align: center;
-    font-size: 1.1em;
-}
-#streak {
-    font-size: 1.5em;
-    background: -webkit-linear-gradient(#eee, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 #score-display {
-    display: inline-block;
-    width: 460px;
     margin: 30px 0px;
     text-align: center;
     font-size: 1.5em;
@@ -66,10 +50,31 @@ canvas {
     -webkit-text-fill-color: transparent;
 }
 
+#side-stats {
+    display: flex;
+    align-items:flex-end;
+    justify-content: space-between;
+    width: 800px;
+    height: 200px;
+    margin: 0px auto;
+}
+
+#streak-display {
+    display: inline-block;
+    width: 125px;
+    text-align: center;
+    font-size: 1.1em;
+}
+#streak {
+    font-size: 1.5em;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #scoremultiplier-display {
     display: inline-block;
     width: 125px;
-    margin: 30px 0px;
     text-align: center;
     font-size: 1.1em;
 }
