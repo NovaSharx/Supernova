@@ -7,14 +7,15 @@ canvas.height = 900
 const refreshRate = 60
 
 const scoreDisplay = document.getElementById('score')
+const streakDisplay = document.getElementById('streak')
+const streakMultiplierDisplay = document.getElementById('streakmultiplier')
 
-var gravity = 5 //max gravity should be 20
+const gameManager = new GameManager()
+
+var gravity = 10 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
-
-var streakCounter = 0
-var currentScore = 0
 
 var diskAssembly = {
     red: [],
@@ -26,6 +27,10 @@ var missedDisks = []
 
 //red, green, blue
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
+
+// const gameplaySection = {
+//     yPos: 100,
+// }
 
 const runwayRed = new Runway({
     position: { x: 125, y: 100 },
@@ -81,8 +86,6 @@ function animate() {
 
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-    updateScore()
 
     runwayRed.render()
     runwayGreen.render()

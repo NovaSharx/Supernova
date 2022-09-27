@@ -130,7 +130,9 @@ class Disk extends Sprite {
     }
 
     detonate() {
+
         accuracyCount++
+
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
@@ -141,7 +143,7 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
-        streakCounter++
+        gameManager.updateStreak('hit')
         this.processAccuracy()
         this.gotHit = true
         let target
@@ -172,21 +174,25 @@ class Disk extends Sprite {
 
         if (percentage >= 93) {
             this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
-            currentScore += 100
-        } else if (percentage >= 80) {
+            gameManager.updateScore(100)
+        }
+        else if (percentage >= 80) {
             this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
-            currentScore += 65
-        } else if (percentage >= 50) {
+            gameManager.updateScore(65)
+        }
+        else if (percentage >= 50) {
             this.image.src = `./Assets/Images/Accuracy_GOOD.png`
-            currentScore += 25
-        } else {
+            gameManager.updateScore(25)
+        }
+        else {
             this.image.src = `./Assets/Images/Accuracy_MEH.png`
-            currentScore += 10
+            gameManager.updateScore(10)
         }
     }
 
     diskHasPassed() {
         accuracyCount++
+        gameManager.updateStreak('miss')
         this.hasPassed = true
         if (!this.gotHit) {
             this.image.src = `./Assets/Images/Missed_Disk_${this.id}.png`
@@ -219,5 +225,48 @@ class Disk extends Sprite {
                 missedDisks.shift()
             }
         }, 0);
+    }
+}
+
+class GameManager {
+    constructor() {
+        this.currentScore = 0
+        this.streakCounter = 0
+        this.streakMultiplier = 1
+    }
+
+    updateScore(score) {
+        this.currentScore += (score * this.streakMultiplier)
+        scoreDisplay.innerHTML = this.currentScore
+    }
+
+    updateStreak(value) {
+        switch (value) {
+            case 'miss':
+                this.streakCounter = 0
+                break;
+            case 'hit':
+                this.streakCounter++
+                break;
+        }
+        this.updateMultiplier()
+
+        streakDisplay.innerHTML = this.streakCounter
+    }
+
+    updateMultiplier() {
+        if (this.streakCounter >= 75) {
+            this.streakMultiplier = 4
+        }
+        else if (this.streakCounter >= 50) {
+            this.streakMultiplier = 3
+        }
+        else if (this.streakCounter >= 25) {
+            this.streakMultiplier = 2
+        } else {
+            this.streakMultiplier = 1
+        }
+        
+        streakMultiplierDisplay.innerHTML = `x${this.streakMultiplier}`
     }
 }
