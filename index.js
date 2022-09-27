@@ -12,7 +12,7 @@ const streakMultiplierDisplay = document.getElementById('streakmultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 10 //gravity should be from 5 to 20 i.e lvl 1 to 15
+var gravity = 7 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
@@ -20,34 +20,36 @@ var averageAccuracy = 0
 var diskAssembly = {
     red: [],
     green: [],
-    blue: []
+    blue: [],
+    hitDisks: [],
+    missedDisks: []
 }
-var hitDisks = []
-var missedDisks = []
 
 //red, green, blue
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
-// const gameplaySection = {
-//     yPos: 100,
-// }
+const gameplayDetails = {
+    position: {x: 125, y: 100},
+    runwayWidth: 150,
+    runwayHeight: 550
+}
 
 const runwayRed = new Runway({
-    position: { x: 125, y: 100 },
+    position: { x: 125, y: gameplayDetails.position.y },
     width: 150,
-    height: 550,
+    height: gameplayDetails.runwayHeight,
     color: triColors[0]
 })
 const runwayGreen = new Runway({
-    position: { x: 285, y: 100 },
+    position: { x: 285, y: gameplayDetails.position.y },
     width: 150,
-    height: 550,
+    height: gameplayDetails.runwayHeight,
     color: triColors[1]
 })
 const runwayBlue = new Runway({
-    position: { x: 445, y: 100 },
+    position: { x: 445, y: gameplayDetails.position.y },
     width: 150,
-    height: 550,
+    height: gameplayDetails.runwayHeight,
     color: triColors[2]
 })
 
@@ -104,12 +106,10 @@ function animate() {
     diskAssembly.blue.forEach((disk) => {
         disk.update()
     })
-
-    hitDisks.forEach((disk) => {
+    diskAssembly.hitDisks.forEach((disk) => {
         disk.update()
     })
-
-    missedDisks.forEach((disk) => {
+    diskAssembly.missedDisks.forEach((disk) => {
         disk.update()
     })
 

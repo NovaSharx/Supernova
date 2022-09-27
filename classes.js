@@ -151,15 +151,15 @@ class Disk extends Sprite {
             switch (this.id) {
                 case 'red':
                     target = diskAssembly.red.shift()
-                    hitDisks.push(target)
+                    diskAssembly.hitDisks.push(target)
                     break;
                 case 'green':
                     target = diskAssembly.green.shift()
-                    hitDisks.push(target)
+                    diskAssembly.hitDisks.push(target)
                     break;
                 case 'blue':
                     target = diskAssembly.blue.shift()
-                    hitDisks.push(target)
+                    diskAssembly.hitDisks.push(target)
                     break;
             }
         }, 0)
@@ -202,15 +202,15 @@ class Disk extends Sprite {
             switch (this.id) {
                 case 'red':
                     target = diskAssembly.red.shift()
-                    missedDisks.push(target)
+                    diskAssembly.missedDisks.push(target)
                     break;
                 case 'green':
                     target = diskAssembly.green.shift()
-                    missedDisks.push(target)
+                    diskAssembly.missedDisks.push(target)
                     break;
                 case 'blue':
                     target = diskAssembly.blue.shift()
-                    missedDisks.push(target)
+                    diskAssembly.missedDisks.push(target)
                     break;
             }
         }, 0)
@@ -220,9 +220,9 @@ class Disk extends Sprite {
         this.gotErased = true
         setTimeout(() => {
             if (this.gotHit) {
-                hitDisks.shift()
+                diskAssembly.hitDisks.shift()
             } else {
-                missedDisks.shift()
+                diskAssembly.missedDisks.shift()
             }
         }, 0);
     }
