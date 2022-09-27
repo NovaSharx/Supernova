@@ -21,7 +21,7 @@ function spawnDisk(id) {
     let disk = new Disk({
         position: {
             x: columnPosX,
-            y: -75
+            y: gameplayDetails.position.y - 150
         },
         imageSrc: `./Assets/Images/Disk_${id}.png`,
         id: id

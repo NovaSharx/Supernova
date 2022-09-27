@@ -12,7 +12,7 @@ const streakMultiplierDisplay = document.getElementById('streakmultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 7 //gravity should be from 5 to 20 i.e lvl 1 to 15
+var gravity = 20 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
@@ -29,26 +29,26 @@ var diskAssembly = {
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
 const gameplayDetails = {
-    position: {x: 125, y: 100},
+    position: {x: 125, y: 175},
     runwayWidth: 150,
-    runwayHeight: 550
+    runwayHeight: 500
 }
 
 const runwayRed = new Runway({
     position: { x: 125, y: gameplayDetails.position.y },
-    width: 150,
+    width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[0]
 })
 const runwayGreen = new Runway({
     position: { x: 285, y: gameplayDetails.position.y },
-    width: 150,
+    width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[1]
 })
 const runwayBlue = new Runway({
     position: { x: 445, y: gameplayDetails.position.y },
-    width: 150,
+    width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[2]
 })
@@ -56,28 +56,28 @@ const runwayBlue = new Runway({
 const detonatorRed = new Detonator({
     position: {
         x: runwayRed.position.x,
-        y: runwayRed.position.y + 560
+        y: runwayRed.position.y + gameplayDetails.runwayHeight
     },
-    width: runwayRed.width,
-    height: runwayRed.width,
+    width: gameplayDetails.runwayWidth,
+    height: gameplayDetails.runwayWidth,
     color: triColors[0]
 })
 const detonatorGreen = new Detonator({
     position: {
         x: runwayGreen.position.x,
-        y: runwayGreen.position.y + 560
+        y: runwayGreen.position.y + gameplayDetails.runwayHeight
     },
-    width: runwayGreen.width,
-    height: runwayGreen.width,
+    width: gameplayDetails.runwayWidth,
+    height: gameplayDetails.runwayWidth,
     color: triColors[1]
 })
 const detonatorBlue = new Detonator({
     position: {
         x: runwayBlue.position.x,
-        y: runwayBlue.position.y + 560
+        y: runwayBlue.position.y + gameplayDetails.runwayHeight
     },
-    width: runwayBlue.width,
-    height: runwayBlue.width,
+    width: gameplayDetails.runwayWidth,
+    height: gameplayDetails.runwayWidth,
     color: triColors[2]
 })
 
