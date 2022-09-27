@@ -12,7 +12,7 @@ class Sprite {
         // this.image.src = imageSrc
     }
 
-    render() {
+    draw() {
         //image to be drawn
         ctx.drawImage(
             this.image,
@@ -24,7 +24,7 @@ class Sprite {
     }
 
     update() {
-        this.render()
+        this.draw()
     }
 }
 
@@ -46,7 +46,7 @@ class Runway extends Sprite {
         this.image = new Image()
         // this.image.src = imageSrc
         this.color = color
-        this.strokeStrength = 5
+        this.strokeStrength = 2
         this.powerBar = 0
     }
 
@@ -56,6 +56,13 @@ class Runway extends Sprite {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height * (this.powerBar / 100))
         ctx.strokeStyle = this.color
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    update() {
+        if (this.powerBar >= 100) {
+            this.strokeStrength = 5
+        }
+        this.render()
     }
 }
 
@@ -80,7 +87,7 @@ class Detonator extends Sprite {
     }
 
     render() {
-        ctx.lineWidth = 5
+        ctx.lineWidth = 2
         ctx.strokeStyle = this.color
         ctx.fillStyle = this.color + '40'
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
@@ -117,7 +124,7 @@ class Disk extends Sprite {
     }
 
     update() {
-        this.render()
+        this.draw()
         this.position.y += gravity
 
         if (!this.hasPassed &&
@@ -255,22 +262,44 @@ class GameManager {
         this.updateMultiplier()
 
         streakDisplay.innerHTML = this.streakCounter
+
+        streakDisplay.style.animation = 'none'
+        setTimeout(() => {
+            streakDisplay.style.animation = '0.2s pulse'
+        }, 0)
     }
 
     updateMultiplier() {
-        if (this.streakCounter >= 7) {
-            // streakMultiplierDisplay.style.fontSize = '2.5em'
+        if (this.streakCounter >= 75) {
+            if (this.streakMultiplier != 4) {
+                streakMultiplierDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                })
+            }
+
             this.streakMultiplier = 4
         }
-        else if (this.streakCounter >= 5) {
-            // streakMultiplierDisplay.style.fontSize = '2.2em'
+        else if (this.streakCounter >= 50) {
+            if (this.streakMultiplier != 3) {
+                streakMultiplierDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                })
+            }
+
             this.streakMultiplier = 3
         }
-        else if (this.streakCounter >= 2) {
-            // streakMultiplierDisplay.style.fontSize = '1.8em'
+        else if (this.streakCounter >= 25) {
+            if (this.streakMultiplier != 2) {
+                streakMultiplierDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                })
+            }
+
             this.streakMultiplier = 2
         } else {
-            // streakMultiplierDisplay.style.fontSize = '1.5em'
             this.streakMultiplier = 1
         }
 

@@ -79,3 +79,9 @@ canvas {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+@keyframes pulse {
+    50% {
+        font-size: 2em;
+    }
+}

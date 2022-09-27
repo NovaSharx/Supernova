@@ -66,7 +66,7 @@ const runwayBlue = new Runway({
 const detonatorRed = new Detonator({
     position: {
         x: runwayRed.position.x,
-        y: runwayRed.position.y + gameplayDetails.runwayHeight
+        y: runwayRed.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
@@ -75,7 +75,7 @@ const detonatorRed = new Detonator({
 const detonatorGreen = new Detonator({
     position: {
         x: runwayGreen.position.x,
-        y: runwayGreen.position.y + gameplayDetails.runwayHeight
+        y: runwayGreen.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
@@ -84,7 +84,7 @@ const detonatorGreen = new Detonator({
 const detonatorBlue = new Detonator({
     position: {
         x: runwayBlue.position.x,
-        y: runwayBlue.position.y + gameplayDetails.runwayHeight
+        y: runwayBlue.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
@@ -99,9 +99,9 @@ function animate() {
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-    runwayRed.render()
-    runwayGreen.render()
-    runwayBlue.render()
+    runwayRed.update()
+    runwayGreen.update()
+    runwayBlue.update()
 
     detonatorRed.render()
     detonatorGreen.render()
