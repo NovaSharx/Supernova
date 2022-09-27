@@ -29,25 +29,35 @@ var diskAssembly = {
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
 const gameplayDetails = {
-    position: {x: 125, y: 175},
+    position: {x: null, y: 175},
     runwayWidth: 150,
-    runwayHeight: 500
+    runwayHeight: 500,
+    runwayOffset: 10
 }
 
 const runwayRed = new Runway({
-    position: { x: 125, y: gameplayDetails.position.y },
+    position: {
+        x: (canvas.width/2) - (gameplayDetails.runwayWidth * 1.5) - gameplayDetails.runwayOffset,
+        y: gameplayDetails.position.y
+    },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[0]
 })
 const runwayGreen = new Runway({
-    position: { x: 285, y: gameplayDetails.position.y },
+    position: {
+        x: runwayRed.position.x + gameplayDetails.runwayWidth + gameplayDetails.runwayOffset,
+        y: gameplayDetails.position.y
+    },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[1]
 })
 const runwayBlue = new Runway({
-    position: { x: 445, y: gameplayDetails.position.y },
+    position: {
+        x: runwayGreen.position.x + gameplayDetails.runwayWidth + gameplayDetails.runwayOffset,
+        y: gameplayDetails.position.y
+    },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayHeight,
     color: triColors[2]
@@ -115,6 +125,7 @@ function animate() {
 
     renderSpawningMask()
 
+    console.log()
 }
 
 animate()
