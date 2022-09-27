@@ -1,5 +1,9 @@
 body {
     background-color: black;
+    background-image: url('./Assets/Images/Background_Body.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     color: white;
 }
 
@@ -57,7 +61,7 @@ canvas {
 }
 #score {
     font-size: 2em;
-    background: -webkit-linear-gradient(#eee, #333);
+    background: -webkit-linear-gradient(#eee, #555);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

@@ -38,13 +38,13 @@ class Runway extends Sprite {
             color
         })
         this.strokeStrength = 5
-
+        this.powerBar = 0
     }
 
     render() {
         ctx.lineWidth = this.strokeStrength
         ctx.fillStyle = this.color + '50'
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height * (this.powerBar / 100))
         ctx.strokeStyle = this.color
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
     }
@@ -174,6 +174,7 @@ class Disk extends Sprite {
 
         if (percentage >= 93) {
             this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
+            gameManager.increasePowerBar(this.id)
             gameManager.updateScore(100)
         }
         else if (percentage >= 80) {
@@ -255,18 +256,48 @@ class GameManager {
     }
 
     updateMultiplier() {
-        if (this.streakCounter >= 75) {
+        if (this.streakCounter >= 7) {
+            // streakMultiplierDisplay.style.fontSize = '2.5em'
             this.streakMultiplier = 4
         }
-        else if (this.streakCounter >= 50) {
+        else if (this.streakCounter >= 5) {
+            // streakMultiplierDisplay.style.fontSize = '2.2em'
             this.streakMultiplier = 3
         }
-        else if (this.streakCounter >= 25) {
+        else if (this.streakCounter >= 2) {
+            // streakMultiplierDisplay.style.fontSize = '1.8em'
             this.streakMultiplier = 2
         } else {
+            // streakMultiplierDisplay.style.fontSize = '1.5em'
             this.streakMultiplier = 1
         }
-        
+
         streakMultiplierDisplay.innerHTML = `x${this.streakMultiplier}`
+    }
+
+    increasePowerBar(id) {
+        switch (id) {
+            case 'red':
+                if (runwayRed.powerBar >= 100) {
+                    runwayRed.powerBar = 100
+                } else {
+                    runwayRed.powerBar += 5
+                }
+                break;
+            case 'green':
+                if (runwayGreen.powerBar >= 100) {
+                    runwayGreen.powerBar = 100
+                } else {
+                    runwayGreen.powerBar += 5
+                }
+                break;
+            case 'blue':
+                if (runwayBlue.powerBar >= 100) {
+                    runwayBlue.powerBar = 100
+                } else {
+                    runwayBlue.powerBar += 5
+                }
+                break;
+        }
     }
 }

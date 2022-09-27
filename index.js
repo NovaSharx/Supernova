@@ -12,7 +12,7 @@ const streakMultiplierDisplay = document.getElementById('streakmultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 20 //gravity should be from 5 to 20 i.e lvl 1 to 15
+var gravity = 5 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
