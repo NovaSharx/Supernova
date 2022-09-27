@@ -8,7 +8,7 @@ const refreshRate = 60
 
 const scoreDisplay = document.getElementById('score')
 const streakDisplay = document.getElementById('streak')
-const streakMultiplierDisplay = document.getElementById('streakmultiplier')
+const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
 
 const gameManager = new GameManager()
 

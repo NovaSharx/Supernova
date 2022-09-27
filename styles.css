@@ -29,7 +29,7 @@ body {
 
 canvas {
     border-radius: 500px;
-    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.5);
 }
 
 #ui-container {
@@ -66,14 +66,14 @@ canvas {
     -webkit-text-fill-color: transparent;
 }
 
-#streakmultiplier-display {
+#scoremultiplier-display {
     display: inline-block;
     width: 125px;
     margin: 30px 0px;
     text-align: center;
     font-size: 1.1em;
 }
-#streakmultiplier {
+#scoremultiplier {
     font-size: 1.5em;
     background: -webkit-linear-gradient(#eee, #333);
     -webkit-background-clip: text;

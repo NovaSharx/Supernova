@@ -242,11 +242,11 @@ class GameManager {
     constructor() {
         this.currentScore = 0
         this.streakCounter = 0
-        this.streakMultiplier = 1
+        this.scoreMultiplier = 1
     }
 
     updateScore(score) {
-        this.currentScore += (score * this.streakMultiplier)
+        this.currentScore += (score * this.scoreMultiplier)
         scoreDisplay.innerHTML = this.currentScore
     }
 
@@ -271,39 +271,39 @@ class GameManager {
 
     updateMultiplier() {
         if (this.streakCounter >= 75) {
-            if (this.streakMultiplier != 4) {
-                streakMultiplierDisplay.style.animation = 'none'
+            if (this.scoreMultiplier != 4) {
+                scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
-                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                    scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
 
-            this.streakMultiplier = 4
+            this.scoreMultiplier = 4
         }
         else if (this.streakCounter >= 50) {
-            if (this.streakMultiplier != 3) {
-                streakMultiplierDisplay.style.animation = 'none'
+            if (this.scoreMultiplier != 3) {
+                scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
-                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                    scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
 
-            this.streakMultiplier = 3
+            this.scoreMultiplier = 3
         }
         else if (this.streakCounter >= 25) {
-            if (this.streakMultiplier != 2) {
-                streakMultiplierDisplay.style.animation = 'none'
+            if (this.scoreMultiplier != 2) {
+                scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
-                    streakMultiplierDisplay.style.animation = '0.2s pulse'
+                    scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
 
-            this.streakMultiplier = 2
+            this.scoreMultiplier = 2
         } else {
-            this.streakMultiplier = 1
+            this.scoreMultiplier = 1
         }
 
-        streakMultiplierDisplay.innerHTML = `x${this.streakMultiplier}`
+        scoreMultiplierDisplay.innerHTML = `x${this.scoreMultiplier}`
     }
 
     increasePowerBar(id) {
