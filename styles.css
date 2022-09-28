@@ -1,4 +1,5 @@
 body {
+    height: 100vh;
     background-color: black;
     background-image: url('./Assets/Images/Background_Body.png');
     background-repeat: no-repeat;
@@ -15,13 +16,15 @@ body {
 
 #title-image {
     width: 500px;
-    object-fit: contain;
-    object-position: 0px -100px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center center;
 }
 
 #title-image:hover {
-    transition: 2s;
+    transition: 2s filter ease-out, 1s width ease-out;
     filter:hue-rotate(360deg);
+    width: 550px;
 }
 
 #game-container {
