@@ -56,7 +56,7 @@ function randomDiskSpawner() {
                 break;
         }
         spawnDisk(id)
-    }, 4000 / gravity)
+    }, 4000 / gameManager.gravity)
 }
 
 function diskMissed(id) {
@@ -91,17 +91,17 @@ window.addEventListener('keypress', (event) => {
         case '4':
             setInterval(() => {
                 spawnDisk('red')
-            }, 4000 / gravity);
+            }, 4000 / gameManager.gravity);
             break;
         case '5':
             setInterval(() => {
                 spawnDisk('green')
-            }, 4000 / gravity);
+            }, 4000 / gameManager.gravity);
             break;
         case '6':
             setInterval(() => {
                 spawnDisk('blue')
-            }, 4000 / gravity);
+            }, 4000 / gameManager.gravity);
             break;
         case '0':
             randomDiskSpawner()
@@ -142,6 +142,12 @@ window.addEventListener('keyup', (event) => {
             break;
         case 'd':
             detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
+            break;
+        case ' ':
+            console.log(`Accuracy Sum: ${gameManager.accuracySum}`)
+            console.log(`Disk Count: ${gameManager.diskCount}`)
+            console.log(`Average Accuracy: ${gameManager.averageAccuracy}`)
+            console.log('...')
             break;
     }
 })

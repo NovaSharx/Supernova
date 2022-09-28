@@ -44,8 +44,22 @@ canvas {
     height: 900px;
 }
 
+#gravity-display {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: -webkit-linear-gradient(#eee, #555);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#gravity {
+    font-size: 1.5em;  
+}
+
 #score-display {
-    margin: 30px 0px;
+    margin: 0px 0px;
     text-align: center;
     font-size: 1.5em;
 }

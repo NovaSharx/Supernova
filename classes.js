@@ -128,7 +128,7 @@ class Disk extends Sprite {
 
     update() {
         this.draw()
-        this.position.y += gravity
+        this.position.y += gameManager.gravity
 
         if (!this.hasPassed &&
             !this.gotHit &&
@@ -143,7 +143,7 @@ class Disk extends Sprite {
 
     detonate() {
 
-        accuracyCount++
+        gameManager.diskCount++
 
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
@@ -184,8 +184,8 @@ class Disk extends Sprite {
         let offset = Math.abs(this.position.y - detonatorRed.position.y)
         let percentage = Math.round(((95 - offset) / 95) * 100)
 
-        accuracySum += percentage
-        averageAccuracy = Math.round(accuracySum / accuracyCount)
+        gameManager.accuracySum += percentage
+        gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskCount)
 
         if (percentage >= 93) {
             this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
@@ -208,7 +208,7 @@ class Disk extends Sprite {
     }
 
     diskHasPassed() {
-        accuracyCount++
+        gameManager.diskCount++
         gameManager.updateStreak('miss')
         this.hasPassed = true
         if (!this.gotHit) {
@@ -247,9 +247,13 @@ class Disk extends Sprite {
 
 class GameManager {
     constructor() {
+        this.gravity = 5 //gravity should be from 5 to 20 i.e lvl 1 to 15
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
+        this.diskCount = 0
+        this.accuracySum = 0
+        this.averageAccuracy = 0
     }
 
     updateScore(score) {

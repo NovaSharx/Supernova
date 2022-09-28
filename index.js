@@ -12,11 +12,6 @@ const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 8 //gravity should be from 5 to 20 i.e lvl 1 to 15
-var accuracyCount = 0
-var accuracySum = 0
-var averageAccuracy = 0
-
 var diskAssembly = {
     red: [],
     green: [],
@@ -29,7 +24,7 @@ var diskAssembly = {
 const triColors = ['#DB3324', '#24DB33', '#3324DB']
 
 const gameplayDetails = {
-    position: {x: null, y: 125},
+    position: {x: null, y: 150},
     runwayWidth: 150,
     runwayHeight: 500,
     runwayOffset: 10
