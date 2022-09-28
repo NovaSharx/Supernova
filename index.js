@@ -12,6 +12,7 @@ const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
 const gravityLevelDisplay = document.getElementById('gravity')
 
 const gameManager = new GameManager()
+const gameTimer = new Timer()
 
 var diskAssembly = {
     red: [],
@@ -123,6 +124,8 @@ function animate() {
     })
 
     renderSpawningMask()
+
+    gameTimer.render()
 }
 
 animate()

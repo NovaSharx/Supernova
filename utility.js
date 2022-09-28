@@ -146,11 +146,14 @@ window.addEventListener('keyup', (event) => {
         case 'd':
             detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
             break;
-        case ' ':
+        case 'f':
             console.log(`Accuracy Sum: ${gameManager.accuracySum}`)
             console.log(`Disk Count: ${gameManager.diskCount}`)
             console.log(`Average Accuracy: ${gameManager.averageAccuracy}`)
             console.log('...')
+            break;
+        case ' ':
+            gameTimer.beginTimer()
             break;
     }
 })

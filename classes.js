@@ -247,6 +247,35 @@ class Disk extends Sprite {
     }
 }
 
+class Timer {
+    constructor() {
+        this.currentTime = 0
+        this.maxTime = 100
+        this.timeRemainingFraction = this.currentTime / this.maxTime
+    }
+
+    render() {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+        ctx.lineWidth = 5
+        ctx.beginPath()
+        ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width/2 - 15, Math.PI * 0.5, Math.PI * ((2 * this.timeRemainingFraction) + 0.5))
+        ctx.stroke()
+    }
+
+    beginTimer() {
+        this.currentTime = this.maxTime
+        this.timeRemainingFraction = this.currentTime / this.maxTime
+        var currentTimerId = setInterval(() => {
+            this.currentTime -= 0.01
+            if (this.currentTime <= 0) {
+                clearInterval(currentTimerId)
+            } else {
+                this.timeRemainingFraction = this.currentTime / this.maxTime
+            }
+        }, 10);
+    }
+}
+
 class GameManager {
     constructor() {
         this.gravityLvl = 1
@@ -358,7 +387,6 @@ class GameManager {
         switch (value) {
             case 'gain':
                 this.skillRating += 10
-                console.log('gain')
                 break;
                 case 'lose':
                 this.skillRating -= 50
