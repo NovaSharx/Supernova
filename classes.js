@@ -82,19 +82,22 @@ class Detonator extends Sprite {
         })
 
         this.image = new Image()
-        // this.image.src = imageSrc
+        this.image.src = imageSrc
         this.color = color
     }
 
     render() {
         ctx.lineWidth = 2
         ctx.strokeStyle = this.color
-        ctx.fillStyle = this.color + '40'
-        ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
+        ctx.fillStyle = this.color + '50'
         ctx.beginPath()
-        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 3, 0, Math.PI * 2, true)
+        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 2.5, 0, Math.PI * 2, true)
         ctx.stroke()
         ctx.fill()
+    }
+
+    update() {
+        this.draw()
     }
 }
 
@@ -147,7 +150,7 @@ class Disk extends Sprite {
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
             this.diskGotHit()
         } else {
-            diskMissed()
+            diskMissed(this.id)
         }
     }
 
@@ -161,14 +164,17 @@ class Disk extends Sprite {
                 case 'red':
                     target = diskAssembly.red.shift()
                     diskAssembly.hitDisks.push(target)
+                    detonatorRed.image.src = './Assets/Images/Detonator_Hit_red.png'
                     break;
                 case 'green':
                     target = diskAssembly.green.shift()
                     diskAssembly.hitDisks.push(target)
+                    detonatorGreen.image.src = './Assets/Images/Detonator_Hit_green.png'
                     break;
                 case 'blue':
                     target = diskAssembly.blue.shift()
                     diskAssembly.hitDisks.push(target)
+                    detonatorBlue.image.src = './Assets/Images/Detonator_Hit_blue.png'
                     break;
             }
         }, 0)
@@ -255,19 +261,22 @@ class GameManager {
         switch (value) {
             case 'miss':
                 this.streakCounter = 0
+                streakDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    streakDisplay.style.animation = '0.2s streakReset'
+                }, 0)
                 break;
             case 'hit':
                 this.streakCounter++
+                streakDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    streakDisplay.style.animation = '0.2s pulse'
+                }, 0)
                 break;
         }
         this.updateMultiplier()
 
         streakDisplay.innerHTML = this.streakCounter
-
-        streakDisplay.style.animation = 'none'
-        setTimeout(() => {
-            streakDisplay.style.animation = '0.2s pulse'
-        }, 0)
     }
 
     updateMultiplier() {

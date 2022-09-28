@@ -59,8 +59,19 @@ function randomDiskSpawner() {
     }, 4000 / gravity)
 }
 
-function diskMissed() {
-    console.log('MISS!')
+function diskMissed(id) {
+    switch (id) {
+        case 'red':
+            detonatorRed.image.src = './Assets/Images/Detonator_Miss_red.png'
+            break;
+        case 'green':
+            detonatorGreen.image.src = './Assets/Images/Detonator_Miss_green.png'
+            break;
+        case 'blue':
+            detonatorBlue.image.src = './Assets/Images/Detonator_Miss_blue.png'
+            break;
+    }
+
     gameManager.updateStreak('miss')
 }
 
@@ -99,24 +110,38 @@ window.addEventListener('keypress', (event) => {
         // Regular Game Buttons
         case 'a':
             if (diskAssembly.red.length === 0) {
-                diskMissed()
+                diskMissed('red')
             } else {
                 diskAssembly.red[0].detonate()
             }
             break;
         case 's':
             if (diskAssembly.green.length === 0) {
-                diskMissed()
+                diskMissed('green')
             } else {
                 diskAssembly.green[0].detonate()
             }
             break;
         case 'd':
             if (diskAssembly.blue.length === 0) {
-                diskMissed()
+                diskMissed('blue')
             } else {
                 diskAssembly.blue[0].detonate()
             }
+            break;
+    }
+})
+
+window.addEventListener('keyup', (event) => {
+    switch (event.key) {
+        case 'a':
+            detonatorRed.image.src = './Assets/Images/Detonator_red.png'
+            break;
+        case 's':
+            detonatorGreen.image.src = './Assets/Images/Detonator_green.png'
+            break;
+        case 'd':
+            detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
             break;
     }
 })

@@ -30,11 +30,12 @@ body {
     font-family: lores-12, sans-serif;
     font-weight: 400;
     font-style: normal;
+    margin: 2em;
 }
 
 canvas {
     border-radius: 500px;
-    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 1);
 }
 
 #ui-container {
@@ -71,6 +72,7 @@ canvas {
     font-size: 1.1em;
 }
 #streak {
+    padding: 0px 10px;
     font-size: 1.5em;
     background: -webkit-linear-gradient(#eee, #333);
     -webkit-background-clip: text;
@@ -93,5 +95,15 @@ canvas {
 @keyframes pulse {
     50% {
         font-size: 2em;
+    }
+}
+
+@keyframes streakReset {
+    25% {
+        padding-left: 0px;
+    }
+
+    75% {
+        padding-right: 0px;
     }
 }

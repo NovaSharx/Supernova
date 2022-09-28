@@ -12,7 +12,7 @@ const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
 
 const gameManager = new GameManager()
 
-var gravity = 10 //gravity should be from 5 to 20 i.e lvl 1 to 15
+var gravity = 8 //gravity should be from 5 to 20 i.e lvl 1 to 15
 var accuracyCount = 0
 var accuracySum = 0
 var averageAccuracy = 0
@@ -70,7 +70,8 @@ const detonatorRed = new Detonator({
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
-    color: triColors[0]
+    color: triColors[0],
+    imageSrc: './Assets/Images/Detonator_red.png'
 })
 const detonatorGreen = new Detonator({
     position: {
@@ -79,7 +80,8 @@ const detonatorGreen = new Detonator({
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
-    color: triColors[1]
+    color: triColors[1],
+    imageSrc: './Assets/Images/Detonator_green.png'
 })
 const detonatorBlue = new Detonator({
     position: {
@@ -88,7 +90,8 @@ const detonatorBlue = new Detonator({
     },
     width: gameplayDetails.runwayWidth,
     height: gameplayDetails.runwayWidth,
-    color: triColors[2]
+    color: triColors[2],
+    imageSrc: './Assets/Images/Detonator_blue.png'
 })
 
 function animate() {
@@ -103,9 +106,9 @@ function animate() {
     runwayGreen.update()
     runwayBlue.update()
 
-    detonatorRed.render()
-    detonatorGreen.render()
-    detonatorBlue.render()
+    detonatorRed.update()
+    detonatorGreen.update()
+    detonatorBlue.update()
 
     diskAssembly.red.forEach((disk) => {
         disk.update()
