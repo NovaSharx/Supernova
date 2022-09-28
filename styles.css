@@ -1,5 +1,5 @@
 body {
-    height: 100vh;
+    height: 100%;
     background-color: black;
     background-image: url('./Assets/Images/Background_Body.png');
     background-repeat: no-repeat;
@@ -38,7 +38,7 @@ body {
 
 canvas {
     border-radius: 500px;
-    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.05);
 }
 
 #ui-container {
