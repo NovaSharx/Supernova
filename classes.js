@@ -288,6 +288,7 @@ class GameManager {
                 })
             }
 
+            scoreMultiplierDisplay.style.fontSize = '2.5em'
             this.scoreMultiplier = 4
         }
         else if (this.streakCounter >= 50) {
@@ -298,6 +299,7 @@ class GameManager {
                 })
             }
 
+            scoreMultiplierDisplay.style.fontSize = '2.2em'
             this.scoreMultiplier = 3
         }
         else if (this.streakCounter >= 25) {
@@ -308,9 +310,11 @@ class GameManager {
                 })
             }
 
+            scoreMultiplierDisplay.style.fontSize = '1.8em'
             this.scoreMultiplier = 2
         } else {
             this.scoreMultiplier = 1
+            scoreMultiplierDisplay.style.fontSize = '1.5em'
         }
 
         scoreMultiplierDisplay.innerHTML = `x${this.scoreMultiplier}`
