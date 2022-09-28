@@ -10,13 +10,18 @@ body {
 #title {
     display: flex;
     justify-content: center;
-    max-height: 300px;
+    height: 300px;
 }
 
 #title-image {
     width: 500px;
     object-fit: contain;
     object-position: 0px -100px;
+}
+
+#title-image:hover {
+    transition: 2s;
+    filter:hue-rotate(360deg);
 }
 
 #game-container {

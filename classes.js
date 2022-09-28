@@ -183,11 +183,12 @@ class Disk extends Sprite {
 
         if (percentage >= 93) {
             this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
-            gameManager.increasePowerBar(this.id)
+            gameManager.increasePowerBar(this.id, 5)
             gameManager.updateScore(100)
         }
         else if (percentage >= 80) {
             this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
+            gameManager.increasePowerBar(this.id, 2)
             gameManager.updateScore(65)
         }
         else if (percentage >= 50) {
@@ -306,27 +307,27 @@ class GameManager {
         scoreMultiplierDisplay.innerHTML = `x${this.scoreMultiplier}`
     }
 
-    increasePowerBar(id) {
+    increasePowerBar(id, power) {
         switch (id) {
             case 'red':
                 if (runwayRed.powerBar >= 100) {
                     runwayRed.powerBar = 100
                 } else {
-                    runwayRed.powerBar += 5
+                    runwayRed.powerBar += power
                 }
                 break;
             case 'green':
                 if (runwayGreen.powerBar >= 100) {
                     runwayGreen.powerBar = 100
                 } else {
-                    runwayGreen.powerBar += 5
+                    runwayGreen.powerBar += power
                 }
                 break;
             case 'blue':
                 if (runwayBlue.powerBar >= 100) {
                     runwayBlue.powerBar = 100
                 } else {
-                    runwayBlue.powerBar += 5
+                    runwayBlue.powerBar += power
                 }
                 break;
         }
