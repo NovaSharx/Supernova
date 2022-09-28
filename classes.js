@@ -269,6 +269,7 @@ class Timer {
             this.currentTime -= 0.01
             if (this.currentTime <= 0) {
                 clearInterval(currentTimerId)
+                this.currentTime = 0
             } else {
                 this.timeRemainingFraction = this.currentTime / this.maxTime
             }

@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d')
 canvas.width = 900
 canvas.height = 900
 
-const refreshRate = 60
+const refreshRate = 60 // fps
 
 const scoreDisplay = document.getElementById('score')
 const streakDisplay = document.getElementById('streak')
@@ -92,7 +92,7 @@ const detonatorBlue = new Detonator({
 })
 
 function animate() {
-    setTimeout(function () { window.requestAnimationFrame(animate) }, 1000 / refreshRate) //60 fps
+    setTimeout(function () { window.requestAnimationFrame(animate) }, 1000 / refreshRate)
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
