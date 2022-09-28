@@ -9,6 +9,7 @@ const refreshRate = 60
 const scoreDisplay = document.getElementById('score')
 const streakDisplay = document.getElementById('streak')
 const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
+const gravityLevelDisplay = document.getElementById('gravity')
 
 const gameManager = new GameManager()
 

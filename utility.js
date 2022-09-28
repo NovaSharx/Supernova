@@ -41,7 +41,8 @@ function spawnDisk(id) {
 }
 
 function randomDiskSpawner() {
-    setInterval(() => {
+
+    setTimeout(() => {
         let random = Math.floor(Math.random() * 3)
         let id
         switch (random) {
@@ -56,6 +57,7 @@ function randomDiskSpawner() {
                 break;
         }
         spawnDisk(id)
+        randomDiskSpawner()
     }, 4000 / gameManager.gravity)
 }
 
@@ -72,6 +74,7 @@ function diskMissed(id) {
             break;
     }
 
+    gameManager.updateSkillRating('lose')
     gameManager.updateStreak('miss')
 }
 

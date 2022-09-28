@@ -155,6 +155,7 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
+        gameManager.updateSkillRating('gain')
         gameManager.updateStreak('hit')
         this.processAccuracy()
         this.gotHit = true
@@ -209,6 +210,7 @@ class Disk extends Sprite {
 
     diskHasPassed() {
         gameManager.diskCount++
+        gameManager.updateSkillRating('lose')
         gameManager.updateStreak('miss')
         this.hasPassed = true
         if (!this.gotHit) {
@@ -247,7 +249,9 @@ class Disk extends Sprite {
 
 class GameManager {
     constructor() {
-        this.gravity = 5 //gravity should be from 5 to 20 i.e lvl 1 to 15
+        this.gravityLvl = 1
+        this.skillRating = 0
+        this.gravity = this.gravityLvl + 4 //gravity should be from 5 to 20 i.e lvl 1 to 15
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
@@ -284,7 +288,7 @@ class GameManager {
     }
 
     updateMultiplier() {
-        if (this.streakCounter >= 75) {
+        if (this.streakCounter >= 25) {
             if (this.scoreMultiplier != 4) {
                 scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
@@ -295,7 +299,7 @@ class GameManager {
             scoreMultiplierDisplay.style.fontSize = '2.5em'
             this.scoreMultiplier = 4
         }
-        else if (this.streakCounter >= 50) {
+        else if (this.streakCounter >= 15) {
             if (this.scoreMultiplier != 3) {
                 scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
@@ -306,7 +310,7 @@ class GameManager {
             scoreMultiplierDisplay.style.fontSize = '2.2em'
             this.scoreMultiplier = 3
         }
-        else if (this.streakCounter >= 25) {
+        else if (this.streakCounter >= 5) {
             if (this.scoreMultiplier != 2) {
                 scoreMultiplierDisplay.style.animation = 'none'
                 setTimeout(() => {
@@ -348,5 +352,48 @@ class GameManager {
                 }
                 break;
         }
+    }
+
+    updateSkillRating(value) {
+        switch (value) {
+            case 'gain':
+                this.skillRating += 10
+                console.log('gain')
+                break;
+                case 'lose':
+                this.skillRating -= 50
+                break;
+        }
+
+        if (this.skillRating >= 100) {
+            this.promoteRank()
+        } else if (this.skillRating <= 0) {
+            this.demoteRank()
+        }
+    }
+
+    promoteRank() {
+        this.gravityLvl++
+        gravityLevelDisplay.style.animation = 'none'
+                setTimeout(() => {
+                    gravityLevelDisplay.style.animation = '0.2s pulse'
+                }, 0)
+        this.updateGravityLevel()
+        this.skillRating = 0
+    }
+
+    demoteRank() {
+        if (this.gravityLvl <= 1) {
+            this.gravityLvl = 1
+        } else {
+            this.gravityLvl--
+        }
+        this.updateGravityLevel()
+        this.skillRating = 0
+    }
+
+    updateGravityLevel() {
+        this.gravity = this.gravityLvl + 4
+        gravityLevelDisplay.innerHTML = this.gravityLvl
     }
 }
