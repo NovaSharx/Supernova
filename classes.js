@@ -393,6 +393,8 @@ class GameManager {
     }
 
     updateGravityLevel() {
+        canvas.style.transition = '0.5s'
+        canvas.style.boxShadow = `0px 0px 50px rgba(255, 255, 255, ${this.gravityLvl/15})`
         this.gravity = this.gravityLvl + 4
         gravityLevelDisplay.innerHTML = this.gravityLvl
     }
