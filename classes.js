@@ -200,29 +200,35 @@ class Disk extends Sprite {
     }
 
     processAccuracy() {
-        let offset = Math.abs(this.position.y - detonatorRed.position.y)
-        let percentage = Math.round(((95 - offset) / 95) * 100)
+        if (this.bonusState) {
+            this.image.src = `./Assets/Images/Accuracy_BONUS_${this.id}.png`
+                gameManager.updateScore(300)
+        } else {
 
-        gameManager.accuracySum += percentage
-        gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskCount)
+            let offset = Math.abs(this.position.y - detonatorRed.position.y)
+            let percentage = Math.round(((95 - offset) / 95) * 100)
+    
+            gameManager.accuracySum += percentage
+            gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskCount)
 
-        if (percentage >= 93) {
-            this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
-            gameManager.increasePowerBar(this.id, 5)
-            gameManager.updateScore(100)
-        }
-        else if (percentage >= 80) {
-            this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
-            gameManager.increasePowerBar(this.id, 2)
-            gameManager.updateScore(65)
-        }
-        else if (percentage >= 50) {
-            this.image.src = `./Assets/Images/Accuracy_GOOD.png`
-            gameManager.updateScore(25)
-        }
-        else {
-            this.image.src = `./Assets/Images/Accuracy_MEH.png`
-            gameManager.updateScore(10)
+            if (percentage >= 93) {
+                this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
+                gameManager.increasePowerBar(this.id, 5)
+                gameManager.updateScore(100)
+            }
+            else if (percentage >= 80) {
+                this.image.src = `./Assets/Images/Accuracy_PERFECT_${this.id}.png`
+                gameManager.increasePowerBar(this.id, 2)
+                gameManager.updateScore(65)
+            }
+            else if (percentage >= 50) {
+                this.image.src = `./Assets/Images/Accuracy_GOOD.png`
+                gameManager.updateScore(25)
+            }
+            else {
+                this.image.src = `./Assets/Images/Accuracy_MEH.png`
+                gameManager.updateScore(10)
+            }
         }
     }
 
