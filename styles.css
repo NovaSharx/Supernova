@@ -41,6 +41,25 @@ canvas {
     box-shadow: 0px 0px 100px rgba(255, 255, 255, 0.066);
 }
 
+#main-menu-container {
+    display: none;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 500px;
+    background-color: black;
+}
+
+#play-game {
+    display: flex;
+    justify-content: center;
+    margin: 350px 0px;
+}
+
+#play-button:hover {
+    cursor: pointer;
+}
+
 #ui-container {
     position: absolute;
     width: 900px;

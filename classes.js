@@ -22,10 +22,6 @@ class Sprite {
             this.width, this.height
         )
     }
-
-    update() {
-        this.draw()
-    }
 }
 
 class Runway extends Sprite {
@@ -70,7 +66,7 @@ class Runway extends Sprite {
         this.bonusState = true
         this.strokeStrength = 5
         console.log('activated')
-        var bonusDurationID = setInterval(()=> {
+        var bonusDurationID = setInterval(() => {
             this.powerBar -= 0.1
             if (this.powerBar <= 0) {
                 clearInterval(bonusDurationID)
@@ -100,16 +96,6 @@ class Detonator extends Sprite {
         this.image = new Image()
         this.image.src = imageSrc
         this.color = color
-    }
-
-    render() {
-        ctx.lineWidth = 2
-        ctx.strokeStyle = this.color
-        ctx.fillStyle = this.color + '50'
-        ctx.beginPath()
-        ctx.arc(this.position.x + this.width / 2, this.position.y + this.height / 2, this.width / 2.5, 0, Math.PI * 2, true)
-        ctx.stroke()
-        ctx.fill()
     }
 
     update() {
@@ -202,12 +188,12 @@ class Disk extends Sprite {
     processAccuracy() {
         if (this.bonusState) {
             this.image.src = `./Assets/Images/Accuracy_BONUS_${this.id}.png`
-                gameManager.updateScore(300)
+            gameManager.updateScore(300)
         } else {
 
             let offset = Math.abs(this.position.y - detonatorRed.position.y)
             let percentage = Math.round(((95 - offset) / 95) * 100)
-    
+
             gameManager.accuracySum += percentage
             gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskCount)
 
@@ -279,7 +265,7 @@ class Timer {
     }
 
     render() {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'
         ctx.lineWidth = 5
         ctx.beginPath()
         ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2 - 15, Math.PI * 0.5, Math.PI * ((2 * this.timeRemainingFraction) + 0.5))
@@ -293,6 +279,7 @@ class Timer {
             this.currentTime -= 0.01
             if (this.currentTime <= 0) {
                 clearInterval(currentTimerId)
+                gameManager.gameState = 'Void'
                 this.currentTime = 0
             } else {
                 this.timeRemainingFraction = this.currentTime / this.maxTime
@@ -303,6 +290,8 @@ class Timer {
 
 class GameManager {
     constructor() {
+        this.gameState = 'Menu'
+        this.diskSpawnerId = null
         this.gravityLvl = 1
         this.skillRating = 0
         this.gravity = this.gravityLvl + 4 //gravity should be from 5 to 20 i.e lvl 1 to 15
@@ -312,6 +301,37 @@ class GameManager {
         this.diskCount = 0
         this.accuracySum = 0
         this.averageAccuracy = 0
+    }
+
+    resetGameValues() {
+        this.gameState = 'Void'
+        this.gravityLvl = 1
+        this.skillRating = 0
+        this.currentScore = 0
+        this.streakCounter = 0
+        this.scoreMultiplier = 1
+        this.diskCount = 0
+        this.accuracySum = 0
+        this.averageAccuracy = 0
+        diskAssembly = {
+            red: [],
+            green: [],
+            blue: [],
+            hitDisks: [],
+            missedDisks: []
+        }
+        runwayRed.powerBar = 0
+        runwayGreen.powerBar = 0
+        runwayBlue.powerBar = 0
+        gameTimer.currentTime = 0
+        clearTimeout(this.diskSpawnerId)
+    }
+
+    startGame() {
+        this.resetGameValues()
+        this.gameState = 'Active'
+        gameTimer.beginTimer()
+        randomDiskSpawner()
     }
 
     updateScore(score) {

@@ -55,9 +55,15 @@ function spawnDisk(id) {
     }
 }
 
-function randomDiskSpawner() {
-
+function runwayDiskSpawner(id) {
     setTimeout(() => {
+        spawnDisk(id)
+        runwayDiskSpawner(id)
+    }, 4000 / gameManager.gravity);
+}
+
+function randomDiskSpawner() {
+    let currentTimeoutId = setTimeout(() => {
         let random = Math.floor(Math.random() * 3)
         let id
         switch (random) {
@@ -72,7 +78,11 @@ function randomDiskSpawner() {
                 break;
         }
         spawnDisk(id)
-        randomDiskSpawner()
+        if (gameManager.gameState === 'Active') {
+            randomDiskSpawner()
+        }
+
+        gameManager.diskSpawnerId = currentTimeoutId
     }, 4000 / gameManager.gravity)
 }
 
@@ -107,19 +117,13 @@ window.addEventListener('keypress', (event) => {
             spawnDisk('blue')
             break;
         case '4':
-            setInterval(() => {
-                spawnDisk('red')
-            }, 4000 / gameManager.gravity);
+            runwayDiskSpawner('red')
             break;
         case '5':
-            setInterval(() => {
-                spawnDisk('green')
-            }, 4000 / gameManager.gravity);
+            runwayDiskSpawner('green')
             break;
         case '6':
-            setInterval(() => {
-                spawnDisk('blue')
-            }, 4000 / gameManager.gravity);
+            runwayDiskSpawner('blue')
             break;
         case '0':
             randomDiskSpawner()
@@ -167,8 +171,18 @@ window.addEventListener('keyup', (event) => {
             console.log(`Average Accuracy: ${gameManager.averageAccuracy}`)
             console.log('...')
             break;
-        case ' ':
+        case 't':
             gameTimer.beginTimer()
+            break;
+        case ' ':
+            if (gameManager.gameState != 'Active') {
+                gameManager.startGame()
+            } else {
+                gameManager.gameState = 'Void'
+            }
+            break;
+        case 'k':
+            gameManager.resetGameValues()
             break;
     }
 })
