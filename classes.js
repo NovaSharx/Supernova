@@ -65,7 +65,6 @@ class Runway extends Sprite {
     activatBonusState() {
         this.bonusState = true
         this.strokeStrength = 5
-        console.log('activated')
         var bonusDurationID = setInterval(() => {
             this.powerBar -= 0.1
             if (this.powerBar <= 0) {
@@ -259,6 +258,7 @@ class Disk extends Sprite {
 
 class Timer {
     constructor() {
+        this.currentTimerId
         this.currentTime = 0
         this.maxTime = 100
         this.timeRemainingFraction = this.currentTime / this.maxTime
@@ -275,16 +275,21 @@ class Timer {
     beginTimer() {
         this.currentTime = this.maxTime
         this.timeRemainingFraction = this.currentTime / this.maxTime
-        var currentTimerId = setInterval(() => {
+        this.currentTimerId = setInterval(() => {
             this.currentTime -= 0.01
             if (this.currentTime <= 0) {
-                clearInterval(currentTimerId)
-                gameManager.gameState = 'Void'
-                this.currentTime = 0
+                this.endTimer()
+                gameManager.endGame()
             } else {
                 this.timeRemainingFraction = this.currentTime / this.maxTime
             }
         }, 10);
+    }
+
+    endTimer() {
+        clearInterval(this.currentTimerId)
+        this.currentTime = 0
+        this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 }
 
@@ -304,7 +309,6 @@ class GameManager {
     }
 
     resetGameValues() {
-        this.gameState = 'Void'
         this.gravityLvl = 1
         this.skillRating = 0
         this.currentScore = 0
@@ -323,8 +327,6 @@ class GameManager {
         runwayRed.powerBar = 0
         runwayGreen.powerBar = 0
         runwayBlue.powerBar = 0
-        gameTimer.currentTime = 0
-        clearTimeout(this.diskSpawnerId)
     }
 
     startGame() {
@@ -332,6 +334,11 @@ class GameManager {
         this.gameState = 'Active'
         gameTimer.beginTimer()
         randomDiskSpawner()
+    }
+
+    endGame() {
+        this.gameState = 'Void'
+        clearTimeout(this.diskSpawnerId)
     }
 
     updateScore(score) {

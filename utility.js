@@ -63,7 +63,7 @@ function runwayDiskSpawner(id) {
 }
 
 function randomDiskSpawner() {
-    let currentTimeoutId = setTimeout(() => {
+    gameManager.diskSpawnerId = setTimeout(() => {
         let random = Math.floor(Math.random() * 3)
         let id
         switch (random) {
@@ -78,11 +78,7 @@ function randomDiskSpawner() {
                 break;
         }
         spawnDisk(id)
-        if (gameManager.gameState === 'Active') {
-            randomDiskSpawner()
-        }
-
-        gameManager.diskSpawnerId = currentTimeoutId
+        randomDiskSpawner()
     }, 4000 / gameManager.gravity)
 }
 
@@ -178,11 +174,12 @@ window.addEventListener('keyup', (event) => {
             if (gameManager.gameState != 'Active') {
                 gameManager.startGame()
             } else {
-                gameManager.gameState = 'Void'
+                gameManager.endGame()
             }
             break;
-        case 'k':
+        case 'r':
             gameManager.resetGameValues()
             break;
+
     }
 })
