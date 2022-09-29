@@ -48,6 +48,7 @@ class Runway extends Sprite {
         this.color = color
         this.strokeStrength = 2
         this.powerBar = 0
+        this.bonusState = false
     }
 
     render() {
@@ -59,10 +60,25 @@ class Runway extends Sprite {
     }
 
     update() {
-        if (this.powerBar >= 100) {
-            this.strokeStrength = 5
+        if (this.powerBar >= 100 && !this.bonusState) {
+            this.activatBonusState()
         }
         this.render()
+    }
+
+    activatBonusState() {
+        this.bonusState = true
+        this.strokeStrength = 5
+        console.log('activated')
+        var bonusDurationID = setInterval(()=> {
+            this.powerBar -= 0.1
+            if (this.powerBar <= 0) {
+                clearInterval(bonusDurationID)
+                this.powerBar = 0
+                this.bonusState = false
+                this.strokeStrength = 2
+            }
+        }, 10)
     }
 }
 
@@ -107,6 +123,7 @@ class Disk extends Sprite {
         width,
         height,
         imageSrc,
+        bonusState,
         id
     }) {
         super({
@@ -123,6 +140,7 @@ class Disk extends Sprite {
         this.hasPassed = false
         this.gotErased = false
         this.gotHit = false
+        this.bonusState = bonusState
         this.id = id
     }
 
@@ -258,7 +276,7 @@ class Timer {
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
         ctx.lineWidth = 5
         ctx.beginPath()
-        ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width/2 - 15, Math.PI * 0.5, Math.PI * ((2 * this.timeRemainingFraction) + 0.5))
+        ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2 - 15, Math.PI * 0.5, Math.PI * ((2 * this.timeRemainingFraction) + 0.5))
         ctx.stroke()
     }
 
@@ -361,24 +379,27 @@ class GameManager {
     increasePowerBar(id, power) {
         switch (id) {
             case 'red':
-                if (runwayRed.powerBar >= 100) {
-                    runwayRed.powerBar = 100
-                } else {
+                if (!runwayRed.bonusState) {
                     runwayRed.powerBar += power
+                    if (runwayRed.powerBar >= 100) {
+                        runwayRed.powerBar = 100
+                    }
                 }
                 break;
             case 'green':
-                if (runwayGreen.powerBar >= 100) {
-                    runwayGreen.powerBar = 100
-                } else {
+                if (!runwayGreen.bonusState) {
                     runwayGreen.powerBar += power
+                    if (runwayGreen.powerBar >= 100) {
+                        runwayGreen.powerBar = 100
+                    }
                 }
                 break;
             case 'blue':
-                if (runwayBlue.powerBar >= 100) {
-                    runwayBlue.powerBar = 100
-                } else {
+                if (!runwayBlue.bonusState) {
                     runwayBlue.powerBar += power
+                    if (runwayBlue.powerBar >= 100) {
+                        runwayBlue.powerBar = 100
+                    }
                 }
                 break;
         }
@@ -389,7 +410,7 @@ class GameManager {
             case 'gain':
                 this.skillRating += 10
                 break;
-                case 'lose':
+            case 'lose':
                 this.skillRating -= 35
                 break;
         }
@@ -407,9 +428,9 @@ class GameManager {
         } else {
             this.gravityLvl++
             gravityLevelDisplay.style.animation = 'none'
-                    setTimeout(() => {
-                        gravityLevelDisplay.style.animation = '0.2s pulse'
-                    }, 0)
+            setTimeout(() => {
+                gravityLevelDisplay.style.animation = '0.2s pulse'
+            }, 0)
             this.updateGravityLevel()
             this.skillRating = 0
         }
@@ -427,7 +448,7 @@ class GameManager {
 
     updateGravityLevel() {
         canvas.style.transition = '1s'
-        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl/15})`
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl / 15})`
         this.gravity = this.gravityLvl + 4
         gravityLevelDisplay.innerHTML = this.gravityLvl
     }

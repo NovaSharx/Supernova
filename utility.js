@@ -5,16 +5,26 @@ function renderSpawningMask() {
 
 function spawnDisk(id) {
     let columnPosX
+    let runwayBonusState = false
 
     switch (id) {
         case 'red':
             columnPosX = runwayRed.position.x
+            if (runwayRed.bonusState) {
+                runwayBonusState = true
+            }
             break;
         case 'green':
             columnPosX = runwayGreen.position.x
+            if (runwayGreen.bonusState) {
+                runwayBonusState = true
+            }
             break;
         case 'blue':
             columnPosX = runwayBlue.position.x
+            if (runwayBlue.bonusState) {
+                runwayBonusState = true
+            }
             break;
     }
 
@@ -24,8 +34,13 @@ function spawnDisk(id) {
             y: gameplayDetails.position.y - 150
         },
         imageSrc: `./Assets/Images/Disk_${id}.png`,
+        bonusState: runwayBonusState,
         id: id
     })
+
+    if (disk.bonusState) {
+        disk.image.src = `./Assets/Images/Disk_Bonus_${id}.png`
+    }
 
     switch (id) {
         case 'red':
