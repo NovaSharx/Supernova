@@ -260,7 +260,7 @@ class Timer {
     constructor() {
         this.currentTimerId
         this.currentTime = 0
-        this.maxTime = 100
+        this.maxTime = 5
         this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 
@@ -334,11 +334,6 @@ class GameManager {
         this.gameState = 'Active'
         gameTimer.beginTimer()
         randomDiskSpawner()
-    }
-
-    endGame() {
-        this.gameState = 'Void'
-        clearTimeout(this.diskSpawnerId)
     }
 
     updateScore(score) {
@@ -484,5 +479,31 @@ class GameManager {
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl / 15})`
         this.gravity = this.gravityLvl + 4
         gravityLevelDisplay.innerHTML = this.gravityLvl
+    }
+
+    endGame() {
+        this.gameState = 'End-Game'
+        clearTimeout(this.diskSpawnerId)
+        this.finishUpGame()
+    }
+
+    finishUpGame() {
+        setTimeout(()=> {
+            if (diskAssembly.red.length === 0 &&
+                diskAssembly.green.length === 0 &&
+                diskAssembly.blue.length === 0 &&
+                diskAssembly.hitDisks.length === 0 &&
+                diskAssembly.missedDisks.length === 0
+                ) {
+                this.loadPostGame()
+            } else {
+                this.finishUpGame()
+            }
+        }, 100)
+    }
+
+    loadPostGame() {
+        gameManager.gameState = 'Post-Game'
+        postGameDisplay.style.display = 'block'
     }
 }

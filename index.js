@@ -10,6 +10,7 @@ const scoreDisplay = document.getElementById('score')
 const streakDisplay = document.getElementById('streak')
 const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
 const gravityLevelDisplay = document.getElementById('gravity')
+const postGameDisplay = document.getElementById('post-game')
 
 const gameManager = new GameManager()
 const gameTimer = new Timer()

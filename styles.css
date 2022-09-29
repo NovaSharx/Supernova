@@ -132,6 +132,15 @@ canvas {
     -webkit-text-fill-color: transparent;
 }
 
+#post-game {
+    display: block;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 500px;
+    backdrop-filter: blur(5px);
+}
+
 @keyframes pulse {
     50% {
         font-size: 2em;
