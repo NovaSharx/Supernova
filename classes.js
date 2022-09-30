@@ -265,7 +265,7 @@ class Timer {
     constructor() {
         this.currentTimerId
         this.currentTime = 0
-        this.maxTime = 20
+        this.maxTime = 5
         this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 
@@ -316,6 +316,7 @@ class GameManager {
     }
 
     resetGameValues() {
+        this.diskSpawnerId = null
         this.gravityLvl = 1
         this.skillRating = 0
         this.currentScore = 0
@@ -507,7 +508,7 @@ class GameManager {
     }
 
     endGame() {
-        this.gameState = 'End-Game'
+        this.gameState = 'Ending-Game'
         clearTimeout(this.diskSpawnerId)
         this.finishUpGame()
     }
@@ -537,11 +538,6 @@ class GameManager {
         highestGravityDisplay.innerHTML = this.highestGravity
         longestStreakDisplay.innerHTML = this.longestStreak
         averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
-
-        playAgainButton.addEventListener('click', ()=> {
-            postGameDisplay.style.display = 'none'
-            this.startGame()
-        })
 
         postGameDisplay.style.display = 'flex'
     }

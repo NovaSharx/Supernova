@@ -1,3 +1,16 @@
+const scoreDisplay = document.getElementById('score')
+const streakDisplay = document.getElementById('streak')
+const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
+const gravityLevelDisplay = document.getElementById('gravity')
+
+const postGameDisplay = document.getElementById('post-game-container')
+const finalScoreDisplay = document.getElementById('stat-final-score')
+const highestGravityDisplay = document.getElementById('stat-highest-gravity')
+const longestStreakDisplay = document.getElementById('stat-longest-streak')
+const averageAccuracyDisplay = document.getElementById('stat-average-accuracy')
+const playAgainButton = document.getElementById('play-again-button')
+const backToMenuButton = document.getElementById('back-to-menu')
+
 function renderSpawningMask() {
     ctx.fillStyle = 'black'
     ctx.fillRect(runwayRed.position.x - 3, 0, gameplayDetails.runwayWidth * 3 + gameplayDetails.runwayOffset * 3, gameplayDetails.position.y - 1)
@@ -167,4 +180,13 @@ window.addEventListener('keyup', (event) => {
             detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
             break;
     }
+})
+
+playAgainButton.addEventListener('click', ()=> {
+    postGameDisplay.style.display = 'none'
+    gameManager.startGame()
+})
+
+backToMenuButton.addEventListener('click', ()=> {
+    console.log('menu')
 })

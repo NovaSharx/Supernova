@@ -133,7 +133,7 @@ canvas {
 }
 
 #post-game-container {
-    display: flex;
+    display: none;
     position: absolute;
     width: 900px;
     height: 900px;
@@ -144,7 +144,7 @@ canvas {
 }
 
 #post-game-items {
-    height: 600px;
+    height: 750px;
 }
 
 #post-game-stats {
@@ -187,6 +187,15 @@ canvas {
     font-size: 2em;
     font-weight: bold;
     position: absolute;
+}
+
+#back-to-menu {
+    width: 150px;
+    margin: 4em auto;
+}
+#back-to-menu:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 @keyframes pulse {
