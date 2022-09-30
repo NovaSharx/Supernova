@@ -146,7 +146,7 @@ class Disk extends Sprite {
 
     detonate() {
 
-        gameManager.diskCount++
+        gameManager.diskAccuracyCount++
 
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
@@ -194,7 +194,7 @@ class Disk extends Sprite {
             let percentage = Math.round(((95 - offset) / 95) * 100)
 
             gameManager.accuracySum += percentage
-            gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskCount)
+            gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskAccuracyCount)
 
             if (percentage >= 93) {
                 this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
@@ -218,7 +218,7 @@ class Disk extends Sprite {
     }
 
     diskHasPassed() {
-        gameManager.diskCount++
+        gameManager.diskAccuracyCount++
         gameManager.updateSkillRating('lose')
         gameManager.updateStreak('miss')
         this.hasPassed = true
@@ -260,7 +260,7 @@ class Timer {
     constructor() {
         this.currentTimerId
         this.currentTime = 0
-        this.maxTime = 5
+        this.maxTime = 20
         this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 
@@ -303,9 +303,11 @@ class GameManager {
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
-        this.diskCount = 0
+        this.diskAccuracyCount = 0
         this.accuracySum = 0
         this.averageAccuracy = 0
+        this.highestGravity = 1
+        this.longestStreak = 0
     }
 
     resetGameValues() {
@@ -314,9 +316,11 @@ class GameManager {
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
-        this.diskCount = 0
+        this.diskAccuracyCount = 0
         this.accuracySum = 0
         this.averageAccuracy = 0
+        this.highestGravity = 1
+        this.longestStreak = 0
         diskAssembly = {
             red: [],
             green: [],
@@ -359,6 +363,10 @@ class GameManager {
                 break;
         }
         this.updateMultiplier()
+
+        if (this.longestStreak < this.streakCounter) {
+            this.longestStreak = this.streakCounter
+        }
 
         streakDisplay.innerHTML = this.streakCounter
     }
@@ -436,10 +444,10 @@ class GameManager {
     updateSkillRating(value) {
         switch (value) {
             case 'gain':
-                this.skillRating += 10
+                this.skillRating += 5
                 break;
             case 'lose':
-                this.skillRating -= 35
+                this.skillRating -= 50
                 break;
         }
 
@@ -478,6 +486,11 @@ class GameManager {
         canvas.style.transition = '1s'
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl / 15})`
         this.gravity = this.gravityLvl + 4
+
+        if (this.highestGravity < this.gravityLvl) {
+            this.highestGravity = this.gravityLvl
+        }
+
         gravityLevelDisplay.innerHTML = this.gravityLvl
     }
 
@@ -499,11 +512,25 @@ class GameManager {
             } else {
                 this.finishUpGame()
             }
-        }, 100)
+        }, 1000)
     }
 
     loadPostGame() {
         gameManager.gameState = 'Post-Game'
-        postGameDisplay.style.display = 'block'
+
+        canvas.style.transition = '1s'
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
+
+        finalScoreDisplay.innerHTML = this.currentScore
+        highestGravityDisplay.innerHTML = this.highestGravity
+        longestStreakDisplay.innerHTML = this.longestStreak
+        averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
+
+        playAgainButton.addEventListener('click', ()=> {
+            postGameDisplay.style.display = 'none'
+            this.startGame()
+        })
+
+        postGameDisplay.style.display = 'flex'
     }
 }

@@ -60,7 +60,7 @@ canvas {
     cursor: pointer;
 }
 
-#ui-container {
+#game-ui-container {
     position: absolute;
     width: 900px;
     height: 900px;
@@ -132,13 +132,50 @@ canvas {
     -webkit-text-fill-color: transparent;
 }
 
-#post-game {
-    display: block;
+#post-game-container {
+    display: none;
     position: absolute;
     width: 900px;
     height: 900px;
     border-radius: 500px;
     backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+#post-game-items {
+    height: 600px;
+}
+
+#post-game-stats {
+    text-align: center;
+}
+
+.post-game-stat-title {
+    font-size: 2em;
+    font-weight: bold;
+    background: -webkit-linear-gradient(0deg, rgba(255,0,0,1) 0%, rgba(0,255,0,1) 50%, rgba(0,0,255,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post-game-stat-figure {
+    margin-bottom: 0.5em;
+    font-size: 3em;
+}
+
+#play-again-button {
+    width: min-content;
+    margin: 0em auto;
+}
+
+#play-again-image {
+    width: 150px;
+}
+#play-again-image:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    width: 160px;
 }
 
 @keyframes pulse {

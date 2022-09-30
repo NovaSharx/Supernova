@@ -14,15 +14,17 @@
     <header>
         <div id="title">
             <a href="./index.html">
-                <img id="title-image" src="./Assets/Images/SUPERNOVA_Title.png" alt="">
+                <img id="title-image" src="./Assets/Images/SUPERNOVA_Title.png" alt="Super Nova Rainbow Logo">
             </a>
         </div>
     </header>
 
     <main>
         <div id="game-container">
+
             <canvas></canvas>
-            <div id="ui-container">
+
+            <div id="game-ui-container">
                 <div id="gravity-display">
                     <div>GRAVITY Lvl: <span id="gravity">1</span></div>
                 </div>
@@ -42,13 +44,27 @@
                 </div>
             </div>
 
-            <div id="post-game">
-
+            <div id="post-game-container">
+                <div id="post-game-items">
+                    <div id="post-game-stats">
+                        <div class="post-game-stat-title">FINAL SCORE</div>
+                        <div class="post-game-stat-figure" id="stat-final-score">0</div>
+                        <div class="post-game-stat-title">HIGHEST GRAVITY LEVEL ATTAINED</div>
+                        <div class="post-game-stat-figure" id="stat-highest-gravity">1</div>
+                        <div class="post-game-stat-title">LONGEST STREAK ATTAINED</div>
+                        <div class="post-game-stat-figure" id="stat-longest-streak">0</div>
+                        <div class="post-game-stat-title">AVERAGE HIT ACCURACY</div>
+                        <div class="post-game-stat-figure" id="stat-average-accuracy">0</div>
+                    </div>
+                    <div id="play-again-button">
+                        <img id="play-again-image" src="./Assets/Images/SUPERNOVA_Logo_BnW.png" alt="Super Nova White Logo">
+                    </div>
+                </div>
             </div>
 
             <div id="main-menu-container">
                 <div id="play-game">
-                    <img id="play-button" src="./Assets/Images/SUPERNOVA_Logo_BnW.png" alt="">
+                    <img id="play-button" src="./Assets/Images/SUPERNOVA_Logo_BnW.png" alt="Super Nova White Logo">
                 </div>
             </div>
         </div>

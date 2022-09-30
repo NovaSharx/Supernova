@@ -100,6 +100,8 @@ function diskMissed(id) {
 }
 
 window.addEventListener('keypress', (event) => {
+    // if (gameManager.gameState != 'Active') { return }
+
     switch (event.key) {
 
         // Game Dev buttons
@@ -123,6 +125,9 @@ window.addEventListener('keypress', (event) => {
             break;
         case '0':
             randomDiskSpawner()
+            break;
+        case ' ':
+            gameManager.startGame()
             break;
 
         // Regular Game Buttons
@@ -161,25 +166,5 @@ window.addEventListener('keyup', (event) => {
         case 'd':
             detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
             break;
-        case 'f':
-            console.log(`Accuracy Sum: ${gameManager.accuracySum}`)
-            console.log(`Disk Count: ${gameManager.diskCount}`)
-            console.log(`Average Accuracy: ${gameManager.averageAccuracy}`)
-            console.log('...')
-            break;
-        case 't':
-            gameTimer.beginTimer()
-            break;
-        case ' ':
-            if (gameManager.gameState != 'Active') {
-                gameManager.startGame()
-            } else {
-                gameManager.endGame()
-            }
-            break;
-        case 'r':
-            gameManager.resetGameValues()
-            break;
-
     }
 })
