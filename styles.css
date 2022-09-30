@@ -133,7 +133,7 @@ canvas {
 }
 
 #post-game-container {
-    display: none;
+    display: flex;
     position: absolute;
     width: 900px;
     height: 900px;
@@ -165,6 +165,9 @@ canvas {
 }
 
 #play-again-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     width: min-content;
     margin: 0em auto;
 }
@@ -176,6 +179,14 @@ canvas {
     cursor: pointer;
     transition: 0.5s;
     width: 160px;
+}
+
+#play-again {
+    text-shadow: 2px 2px black;
+    pointer-events: none;
+    font-size: 2em;
+    font-weight: bold;
+    position: absolute;
 }
 
 @keyframes pulse {

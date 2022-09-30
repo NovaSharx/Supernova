@@ -45,6 +45,7 @@ class Runway extends Sprite {
         this.strokeStrength = 2
         this.powerBar = 0
         this.bonusState = false
+        this.bonusDurationID
     }
 
     render() {
@@ -65,15 +66,19 @@ class Runway extends Sprite {
     activatBonusState() {
         this.bonusState = true
         this.strokeStrength = 5
-        var bonusDurationID = setInterval(() => {
+        this.bonusDurationID = setInterval(() => {
             this.powerBar -= 0.1
             if (this.powerBar <= 0) {
-                clearInterval(bonusDurationID)
                 this.powerBar = 0
-                this.bonusState = false
-                this.strokeStrength = 2
+                this.deactivateBonusState()
             }
         }, 10)
+    }
+
+    deactivateBonusState() {
+        clearInterval(this.bonusDurationID)
+        this.bonusState = false
+        this.strokeStrength = 2
     }
 }
 
@@ -331,6 +336,13 @@ class GameManager {
         runwayRed.powerBar = 0
         runwayGreen.powerBar = 0
         runwayBlue.powerBar = 0
+        runwayRed.deactivateBonusState()
+        runwayGreen.deactivateBonusState()
+        runwayBlue.deactivateBonusState()
+        gravityLevelDisplay.innerHTML = this.gravityLvl
+        scoreDisplay.innerHTML = this.currentScore
+        streakDisplay.innerHTML = this.streakCounter
+        scoreMultiplierDisplay.innerHTML = this.scoreMultiplier
     }
 
     startGame() {
