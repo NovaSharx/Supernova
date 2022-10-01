@@ -1,3 +1,5 @@
+const shootingStarDisplay = document.getElementById('shooting-star')
+
 const mainMenuDisplay = document.getElementById('main-menu-container')
 const playButton = document.getElementById('play-button')
 
@@ -116,6 +118,30 @@ function diskMissed(id) {
     gameManager.updateStreak('miss')
 }
 
+function spawnShootingStar () {
+    shootingStarDisplay.src = './Assets/Images/Shooting_Star_07.png'
+    let position = {
+        x: Math.floor(Math.random() * (window.innerWidth - 150) + 1),
+        y: Math.floor(Math.random() * (window.innerHeight - 150) + 1)
+    }
+    setTimeout(()=> {
+        shootingStarDisplay.style.top = `${position.y}px`
+        shootingStarDisplay.style.left = `${position.x}px`
+        shootingStarDisplay.src = './Assets/Images/Shooting_Star.gif'
+    }, 0)
+}
+
+// Generate a shooting star between minTIme and maxTime perpetually
+function randomShootingStars() {
+    let minTime = 30000
+    let maxTime = 20000
+    let randomTime = Math.floor((Math.random() * (maxTime - minTime + 1)) + minTime)
+    setTimeout(()=> {
+        spawnShootingStar()
+        randomShootingStars()
+    }, randomTime)
+}
+
 window.addEventListener('keypress', (event) => {
     // if (gameManager.gameState != 'Active') { return }
 
@@ -168,6 +194,10 @@ window.addEventListener('keypress', (event) => {
             } else {
                 diskAssembly.blue[0].detonate()
             }
+            break;
+
+        case 'e':
+            spawnShootingStar()
             break;
     }
 })

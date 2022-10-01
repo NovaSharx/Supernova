@@ -353,6 +353,8 @@ class GameManager {
         mainMenuDisplay.style.display = 'none'
         postGameDisplay.style.display = 'none'
         inGameDisplay.style.display = 'block'
+        canvas.style.transition = '1s'
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
         gameTimer.beginTimer()
         randomDiskSpawner()
     }
@@ -552,7 +554,7 @@ class GameManager {
         gameManager.gameState = 'Main-Menu'
 
         canvas.style.transition = '1s'
-        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.5)`
 
         inGameDisplay.style.display = 'none'
         postGameDisplay.style.display = 'none'
