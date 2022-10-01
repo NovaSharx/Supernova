@@ -1,5 +1,5 @@
 const mainMenuDisplay = document.getElementById('main-menu-container')
-const playGameButton = document.getElementById('play-game')
+const playButton = document.getElementById('play-button')
 
 const inGameDisplay = document.getElementById('in-game-container')
 const scoreDisplay = document.getElementById('score')
@@ -186,7 +186,7 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-playGameButton.addEventListener('click', ()=> {
+playButton.addEventListener('click', ()=> {
     gameManager.startGame()
 })
 
