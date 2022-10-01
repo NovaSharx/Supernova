@@ -318,6 +318,7 @@ class GameManager {
     resetGameValues() {
         this.diskSpawnerId = null
         this.gravityLvl = 1
+        this.gravity = this.gravityLvl + 4
         this.skillRating = 0
         this.currentScore = 0
         this.streakCounter = 0
@@ -460,10 +461,10 @@ class GameManager {
     updateSkillRating(value) {
         switch (value) {
             case 'gain':
-                this.skillRating += 5
+                this.skillRating += 10
                 break;
             case 'lose':
-                this.skillRating -= 50
+                this.skillRating -= 25
                 break;
         }
 
