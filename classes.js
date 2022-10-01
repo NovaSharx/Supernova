@@ -265,7 +265,7 @@ class Timer {
     constructor() {
         this.currentTimerId
         this.currentTime = 0
-        this.maxTime = 5
+        this.maxTime = 100
         this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 
@@ -349,6 +349,9 @@ class GameManager {
     startGame() {
         this.resetGameValues()
         this.gameState = 'Active'
+        mainMenuDisplay.style.display = 'none'
+        postGameDisplay.style.display = 'none'
+        inGameDisplay.style.display = 'block'
         gameTimer.beginTimer()
         randomDiskSpawner()
     }
@@ -539,6 +542,19 @@ class GameManager {
         longestStreakDisplay.innerHTML = this.longestStreak
         averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
 
+        mainMenuDisplay.style.display = 'none'
+        inGameDisplay.style.display = 'none'
         postGameDisplay.style.display = 'flex'
+    }
+
+    loadMainMenu() {
+        gameManager.gameState = 'Main-Menu'
+
+        canvas.style.transition = '1s'
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
+
+        inGameDisplay.style.display = 'none'
+        postGameDisplay.style.display = 'none'
+        mainMenuDisplay.style.display = 'flex'
     }
 }

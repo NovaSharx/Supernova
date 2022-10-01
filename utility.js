@@ -1,3 +1,7 @@
+const mainMenuDisplay = document.getElementById('main-menu-container')
+const playGameButton = document.getElementById('play-game')
+
+const inGameDisplay = document.getElementById('in-game-container')
 const scoreDisplay = document.getElementById('score')
 const streakDisplay = document.getElementById('streak')
 const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
@@ -182,11 +186,14 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
+playGameButton.addEventListener('click', ()=> {
+    gameManager.startGame()
+})
+
 playAgainButton.addEventListener('click', ()=> {
-    postGameDisplay.style.display = 'none'
     gameManager.startGame()
 })
 
 backToMenuButton.addEventListener('click', ()=> {
-    console.log('menu')
+    gameManager.loadMainMenu()
 })
