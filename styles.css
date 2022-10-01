@@ -78,7 +78,7 @@ canvas {
     text-align: center;
     text-shadow: 2px 2px black;
     pointer-events: none;
-    font-size: 2em;
+    font-size: 3em;
     font-weight: bold;
     z-index: 1;
 }
