@@ -134,7 +134,7 @@ function spawnShootingStar () {
 // Generate a shooting star between minTIme and maxTime perpetually
 function randomShootingStars() {
     let minTime = 30000
-    let maxTime = 20000
+    let maxTime = 600000
     let randomTime = Math.floor((Math.random() * (maxTime - minTime + 1)) + minTime)
     setTimeout(()=> {
         spawnShootingStar()
