@@ -304,7 +304,7 @@ class GameManager {
         this.diskSpawnerId = null
         this.gravityLvl = 1
         this.skillRating = 0
-        this.gravity = 5 //gravity should be from 5 to 15 i.e lvl 1 to 10
+        this.gravity = 4 + this.gravityLvl //gravity should be from 5 to 15 i.e lvl 1 to 10
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
@@ -319,7 +319,7 @@ class GameManager {
     resetGameValues() {
         this.diskSpawnerId = null
         this.gravityLvl = 1
-        this.gravity = 5
+        this.gravity = 4 + this.gravityLvl
         this.skillRating = 0
         this.currentScore = 0
         this.streakCounter = 0
@@ -506,7 +506,7 @@ class GameManager {
     updateGravityLevel() {
         canvas.style.transition = '1s'
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl / 15})`
-        this.gravity = 5 + this.gravityLvl
+        this.gravity = 4 + this.gravityLvl
 
         if (this.highestGravity < this.gravityLvl) {
             this.highestGravity = this.gravityLvl
