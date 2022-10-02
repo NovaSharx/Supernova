@@ -16,8 +16,10 @@ const longestStreakDisplay = document.getElementById('stat-longest-streak')
 const averageAccuracyDisplay = document.getElementById('stat-average-accuracy')
 const playAgainButton = document.getElementById('play-again-button')
 const backToMenuButton = document.getElementById('back-to-menu')
+
 const hitAudio = new Audio('./Assets/Audio/HitShort.wav')
 const missAudio = new Audio('./Assets/Audio/Miss.wav')
+const logoSwirlAudio = new Audio ('./Assets/Audio/Logo_SwirlShort.wav')
 
 function renderSpawningMask() {
     ctx.fillStyle = 'black'
@@ -74,6 +76,7 @@ function spawnDisk(id) {
             diskAssembly.blue.push(disk)
             break;
     }
+    gameManager.disksSpawned++
 }
 
 function runwayDiskSpawner(id) {

@@ -13,7 +13,7 @@ There will be a time limit of 100 seconds.
 You will be rewarded various points for each hit based off of timing and accuracy.
 
 ~ GRAVITY LEVEL
-Your 'Gravity Level' determines how quickly the disks spawn and fall. As you hit disks, you will be rewarded skill rating points behind the scenes which contribute towards promoting your Gravity Level. If you miss disks or allow them to pass by then you will lose skill rating and possibly demote your Gravity Level.
+Your 'Gravity Level' determines how quickly the disks spawn and fall. As you hit disks, you will be rewarded skill rating points behind the scenes which contribute towards promoting your Gravity Level. If you miss disks or allow them to pass by then you will lose skill rating and possibly demote your Gravity Level. The highest gravity level is 10.
 
 ~ STREAK COUNT ~
 You can grow a streak for hitting multiple disks in a row without missing.

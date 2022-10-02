@@ -150,9 +150,6 @@ class Disk extends Sprite {
     }
 
     detonate() {
-
-        gameManager.diskAccuracyCount++
-
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
@@ -197,11 +194,13 @@ class Disk extends Sprite {
             gameManager.updateScore(300)
         } else {
 
+            gameManager.diskHitCount++
+
             let offset = Math.abs(this.position.y - detonatorRed.position.y)
             let percentage = Math.round(((95 - offset) / 95) * 100)
 
             gameManager.accuracySum += percentage
-            gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskAccuracyCount)
+            gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskHitCount)
 
             if (percentage >= 93) {
                 this.image.src = `./Assets/Images/Accuracy_SUPERPERFECT_${this.id}.png`
@@ -225,7 +224,6 @@ class Disk extends Sprite {
     }
 
     diskHasPassed() {
-        gameManager.diskAccuracyCount++
         gameManager.updateSkillRating('lose')
         gameManager.updateStreak('miss')
         this.hasPassed = true
@@ -306,11 +304,12 @@ class GameManager {
         this.diskSpawnerId = null
         this.gravityLvl = 1
         this.skillRating = 0
-        this.gravity = 5 //gravity should be from 5 to 20 i.e lvl 1 to 15
+        this.gravity = 5 //gravity should be from 5 to 15 i.e lvl 1 to 10
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
-        this.diskAccuracyCount = 0
+        this.disksSpawned = 0
+        this.diskHitCount = 0
         this.accuracySum = 0
         this.averageAccuracy = 0
         this.highestGravity = 1
@@ -325,7 +324,8 @@ class GameManager {
         this.currentScore = 0
         this.streakCounter = 0
         this.scoreMultiplier = 1
-        this.diskAccuracyCount = 0
+        this.disksSpawned = 0
+        this.diskHitCount = 0
         this.accuracySum = 0
         this.averageAccuracy = 0
         this.highestGravity = 1
@@ -356,7 +356,7 @@ class GameManager {
         postGameDisplay.style.display = 'none'
         inGameDisplay.style.display = 'block'
         canvas.style.transition = '1s'
-        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.1)`
         gameTimer.beginTimer()
         randomDiskSpawner()
     }
@@ -480,7 +480,7 @@ class GameManager {
     }
 
     promoteRank() {
-        if (this.gravityLvl >= 15) {
+        if (this.gravityLvl >= 10) {
             this.skillRating = 100
         } else {
             this.gravityLvl++
@@ -539,7 +539,7 @@ class GameManager {
         gameManager.gameState = 'Post-Game'
 
         canvas.style.transition = '1s'
-        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.066)`
+        canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.1)`
 
         finalScoreDisplay.innerHTML = this.currentScore
         highestGravityDisplay.innerHTML = this.highestGravity
