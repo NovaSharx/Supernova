@@ -5,6 +5,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    font-family: lores-12, sans-serif;
+    font-weight: 400;
+    font-style: normal;
     color: white;
 }
 
@@ -12,6 +15,17 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
+}
+
+#dev-mode {
+    padding: 0px 10px;
+    text-align: right;
+    color: rgb(129, 129, 129);
+    transition: 0.5s;
+}
+#dev-mode:hover {
+    cursor: pointer;
+    color: white;
 }
 
 #title {
@@ -36,9 +50,6 @@ body {
 #game-container {
     display: flex;
     justify-content: center;
-    font-family: lores-12, sans-serif;
-    font-weight: 400;
-    font-style: normal;
     margin: 2em;
 }
 

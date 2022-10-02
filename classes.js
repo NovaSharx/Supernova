@@ -299,6 +299,7 @@ class Timer {
 
 class GameManager {
     constructor() {
+        this.devMode = false
         this.gameState = 'Menu'
         this.diskSpawnerId = null
         this.gravityLvl = 1

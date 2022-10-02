@@ -1,5 +1,7 @@
 const shootingStarDisplay = document.getElementById('shooting-star')
 
+const devModeButton = document.getElementById('dev-mode')
+
 const mainMenuDisplay = document.getElementById('main-menu-container')
 const playButton = document.getElementById('play-button')
 
@@ -151,35 +153,20 @@ function randomShootingStars() {
     }, randomTime)
 }
 
+function promptDevMode() {
+    response = window.prompt('Please ENTER the Password')
+    if (response === 'nova') {
+        gameManager.devMode = true
+        devModeButton.style.color = 'white'
+        window.alert('Success!')
+    } else {
+        window.alert('Denied!')
+    }
+}
+
 window.addEventListener('keypress', (event) => {
     if (gameManager.gameState === 'Active') {
         switch (event.key) {
-
-            // Game Dev buttons
-            case '1':
-                spawnDisk('red')
-                break;
-            case '2':
-                spawnDisk('green')
-                break;
-            case '3':
-                spawnDisk('blue')
-                break;
-            case '4':
-                runwayDiskSpawner('red')
-                break;
-            case '5':
-                runwayDiskSpawner('green')
-                break;
-            case '6':
-                runwayDiskSpawner('blue')
-                break;
-            case '0':
-                randomDiskSpawner()
-                break;
-            case ' ':
-                gameManager.startGame()
-                break;
 
             // Regular Game Buttons
             case 'a':
@@ -206,6 +193,38 @@ window.addEventListener('keypress', (event) => {
         }
     }
 
+    if (gameManager.gameState === 'Active' && gameManager.devMode) {
+        switch (event.key) {
+
+            // Game Dev buttons
+        case '1':
+            spawnDisk('red')
+            break;
+        case '2':
+            spawnDisk('green')
+            break;
+        case '3':
+            spawnDisk('blue')
+            break;
+        case '4':
+            runwayDiskSpawner('red')
+            break;
+        case '5':
+            runwayDiskSpawner('green')
+            break;
+        case '6':
+            runwayDiskSpawner('blue')
+            break;
+        case '0':
+            randomDiskSpawner()
+            break;
+        case ' ':
+            gameManager.startGame()
+            break;
+
+        }
+    }
+
     switch (event.key) {
         case 'e':
             spawnShootingStar()
@@ -224,6 +243,15 @@ window.addEventListener('keyup', (event) => {
         case 'd':
             detonatorBlue.image.src = './Assets/Images/Detonator_blue.png'
             break;
+    }
+})
+
+devModeButton.addEventListener('click', () => {
+    if (!gameManager.devMode) {
+        promptDevMode()
+    } else {
+        gameManager.devMode = false
+        devModeButton.style.color = 'rgb(129, 129, 129)'
     }
 })
 
