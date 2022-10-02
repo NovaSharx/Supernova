@@ -67,8 +67,18 @@ canvas {
     height: 900px;
     border-radius: 500px;
     background-color: black;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+}
+
+.menu-option {
+    color: #999;
+    transition: 0.3s;
+}
+.menu-option:hover {
+    cursor: pointer;
+    color: white;
+    padding: 0 0 5px;
 }
 
 #play-button {

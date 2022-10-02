@@ -3,7 +3,9 @@ const shootingStarDisplay = document.getElementById('shooting-star')
 const devModeButton = document.getElementById('dev-mode')
 
 const mainMenuDisplay = document.getElementById('main-menu-container')
+const tutorialButton = document.getElementById('tutorial')
 const playButton = document.getElementById('play-button')
+const settingsButton = document.getElementById('settings')
 
 const inGameDisplay = document.getElementById('in-game-container')
 const scoreDisplay = document.getElementById('score')
