@@ -16,6 +16,8 @@ const longestStreakDisplay = document.getElementById('stat-longest-streak')
 const averageAccuracyDisplay = document.getElementById('stat-average-accuracy')
 const playAgainButton = document.getElementById('play-again-button')
 const backToMenuButton = document.getElementById('back-to-menu')
+const hitAudio = new Audio('./Assets/Audio/HitShort.wav')
+const missAudio = new Audio('./Assets/Audio/Miss.wav')
 
 function renderSpawningMask() {
     ctx.fillStyle = 'black'
@@ -116,15 +118,18 @@ function diskMissed(id) {
 
     gameManager.updateSkillRating('lose')
     gameManager.updateStreak('miss')
+
+    missAudio.load()
+    missAudio.play()
 }
 
-function spawnShootingStar () {
+function spawnShootingStar() {
     shootingStarDisplay.src = './Assets/Images/Shooting_Star_07.png'
     let position = {
         x: Math.floor(Math.random() * (window.innerWidth - 150) + 1),
         y: Math.floor(Math.random() * (window.innerHeight - 150) + 1)
     }
-    setTimeout(()=> {
+    setTimeout(() => {
         shootingStarDisplay.style.top = `${position.y}px`
         shootingStarDisplay.style.left = `${position.x}px`
         shootingStarDisplay.src = './Assets/Images/Shooting_Star.gif'
@@ -136,66 +141,68 @@ function randomShootingStars() {
     let minTime = 30000
     let maxTime = 600000
     let randomTime = Math.floor((Math.random() * (maxTime - minTime + 1)) + minTime)
-    setTimeout(()=> {
+    setTimeout(() => {
         spawnShootingStar()
         randomShootingStars()
     }, randomTime)
 }
 
 window.addEventListener('keypress', (event) => {
-    // if (gameManager.gameState != 'Active') { return }
+    if (gameManager.gameState === 'Active') {
+        switch (event.key) {
+
+            // Game Dev buttons
+            case '1':
+                spawnDisk('red')
+                break;
+            case '2':
+                spawnDisk('green')
+                break;
+            case '3':
+                spawnDisk('blue')
+                break;
+            case '4':
+                runwayDiskSpawner('red')
+                break;
+            case '5':
+                runwayDiskSpawner('green')
+                break;
+            case '6':
+                runwayDiskSpawner('blue')
+                break;
+            case '0':
+                randomDiskSpawner()
+                break;
+            case ' ':
+                gameManager.startGame()
+                break;
+
+            // Regular Game Buttons
+            case 'a':
+                if (diskAssembly.red.length === 0) {
+                    diskMissed('red')
+                } else {
+                    diskAssembly.red[0].detonate()
+                }
+                break;
+            case 's':
+                if (diskAssembly.green.length === 0) {
+                    diskMissed('green')
+                } else {
+                    diskAssembly.green[0].detonate()
+                }
+                break;
+            case 'd':
+                if (diskAssembly.blue.length === 0) {
+                    diskMissed('blue')
+                } else {
+                    diskAssembly.blue[0].detonate()
+                }
+                break;
+        }
+    }
 
     switch (event.key) {
-
-        // Game Dev buttons
-        case '1':
-            spawnDisk('red')
-            break;
-        case '2':
-            spawnDisk('green')
-            break;
-        case '3':
-            spawnDisk('blue')
-            break;
-        case '4':
-            runwayDiskSpawner('red')
-            break;
-        case '5':
-            runwayDiskSpawner('green')
-            break;
-        case '6':
-            runwayDiskSpawner('blue')
-            break;
-        case '0':
-            randomDiskSpawner()
-            break;
-        case ' ':
-            gameManager.startGame()
-            break;
-
-        // Regular Game Buttons
-        case 'a':
-            if (diskAssembly.red.length === 0) {
-                diskMissed('red')
-            } else {
-                diskAssembly.red[0].detonate()
-            }
-            break;
-        case 's':
-            if (diskAssembly.green.length === 0) {
-                diskMissed('green')
-            } else {
-                diskAssembly.green[0].detonate()
-            }
-            break;
-        case 'd':
-            if (diskAssembly.blue.length === 0) {
-                diskMissed('blue')
-            } else {
-                diskAssembly.blue[0].detonate()
-            }
-            break;
-
         case 'e':
             spawnShootingStar()
             break;
@@ -216,14 +223,14 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-playButton.addEventListener('click', ()=> {
+playButton.addEventListener('click', () => {
     gameManager.startGame()
 })
 
-playAgainButton.addEventListener('click', ()=> {
+playAgainButton.addEventListener('click', () => {
     gameManager.startGame()
 })
 
-backToMenuButton.addEventListener('click', ()=> {
+backToMenuButton.addEventListener('click', () => {
     gameManager.loadMainMenu()
 })

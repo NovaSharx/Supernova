@@ -163,6 +163,8 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
+        hitAudio.load()
+        hitAudio.play()
         gameManager.updateSkillRating('gain')
         gameManager.updateStreak('hit')
         this.processAccuracy()
@@ -514,19 +516,18 @@ class GameManager {
     }
 
     endGame() {
-        this.gameState = 'Ending-Game'
         clearTimeout(this.diskSpawnerId)
         this.finishUpGame()
     }
 
     finishUpGame() {
-        setTimeout(()=> {
+        setTimeout(() => {
             if (diskAssembly.red.length === 0 &&
                 diskAssembly.green.length === 0 &&
                 diskAssembly.blue.length === 0 &&
                 diskAssembly.hitDisks.length === 0 &&
                 diskAssembly.missedDisks.length === 0
-                ) {
+            ) {
                 this.loadPostGame()
             } else {
                 this.finishUpGame()
