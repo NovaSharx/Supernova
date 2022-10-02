@@ -160,6 +160,7 @@ class Disk extends Sprite {
     }
 
     diskGotHit() {
+        gameManager.diskHitCount++
         hitAudio.load()
         hitAudio.play()
         gameManager.updateSkillRating('gain')
@@ -193,8 +194,6 @@ class Disk extends Sprite {
             this.image.src = `./Assets/Images/Accuracy_BONUS_${this.id}.png`
             gameManager.updateScore(300)
         } else {
-
-            gameManager.diskHitCount++
 
             let offset = Math.abs(this.position.y - detonatorRed.position.y)
             let percentage = Math.round(((95 - offset) / 95) * 100)
@@ -542,8 +541,9 @@ class GameManager {
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.1)`
 
         finalScoreDisplay.innerHTML = this.currentScore
-        highestGravityDisplay.innerHTML = this.highestGravity
+        highestGravityDisplay.innerHTML = `Level ${this.highestGravity}`
         longestStreakDisplay.innerHTML = this.longestStreak
+        disksHitDisplay.innerHTML = `${this.diskHitCount} out of ${this.disksSpawned} (${Math.floor((this.diskHitCount/this.disksSpawned) * 100)}%)`
         averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
 
         mainMenuDisplay.style.display = 'none'
