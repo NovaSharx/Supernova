@@ -7,10 +7,10 @@ This is a hand eye coordination focused arcade game.
 The objective of the game is to hit the most amount of falling disks as accurately as possible with either the 'A', 'S' or 'D' key. Those keys are your detonators.
 
 ~ TIMER ~
-There will be a time limit of 100 seconds.
+There will be a time limit of 100 seconds. So make every second count!
 
-~ POINTS ~
-You will be rewarded various points for each hit based off of timing and accuracy.
+~ SCORE ~
+You will be rewarded various score points for each hit based off of timing and accuracy.
 
 ~ GRAVITY LEVEL
 Your 'Gravity Level' determines how quickly the disks spawn and fall. As you hit disks, you will be rewarded skill rating points behind the scenes which contribute towards promoting your Gravity Level. If you miss disks or allow them to pass by then you will lose skill rating and possibly demote your Gravity Level. The highest gravity level is 10.

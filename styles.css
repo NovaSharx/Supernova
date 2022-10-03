@@ -89,7 +89,7 @@ canvas {
     height: 800px;
     justify-content: center;
     border-radius: 400px;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0, 0.8);
     backdrop-filter: blur(20px);
     z-index: 2;
 }
@@ -120,6 +120,7 @@ canvas {
 #tutorial-description {
     width: 400px;
     height: 300px;
+    font-size: 1.2em;
     overflow-wrap: break-word;
 }
 

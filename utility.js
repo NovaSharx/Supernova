@@ -273,12 +273,18 @@ tutorialButton.addEventListener('click', () => {
 
 tutorialNextButton.addEventListener('click', () => {
     gameManager.tutorialSlide++
+    if (gameManager.tutorialSlide > 8) {
+        gameManager.tutorialSlide = 0
+    }
     tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
     tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
 })
 
 tutorialPrevButton.addEventListener('click', () => {
     gameManager.tutorialSlide--
+    if (gameManager.tutorialSlide < 0) {
+        gameManager.tutorialSlide = 8
+    }
     tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
     tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
 })
