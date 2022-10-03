@@ -4,6 +4,12 @@ const devModeButton = document.getElementById('dev-mode')
 
 const mainMenuDisplay = document.getElementById('main-menu-container')
 const tutorialButton = document.getElementById('tutorial')
+const tutorialDisplay = document.getElementById('tutorial-display')
+const tutorialImage = document.getElementById('tutorial-image')
+const tutorialDescription = document.getElementById('tutorial-description')
+const tutorialNextButton = document.getElementById('next-tutorial')
+const tutorialPrevButton = document.getElementById('prev-tutorial')
+const tutorialCloseButton = document.getElementById('close-tutorial')
 const playButton = document.getElementById('play-button')
 const settingsButton = document.getElementById('settings')
 
@@ -255,6 +261,31 @@ devModeButton.addEventListener('click', () => {
         gameManager.devMode = false
         devModeButton.style.color = 'rgb(129, 129, 129)'
     }
+})
+
+tutorialButton.addEventListener('click', () => {
+    tutorialDisplay.style.display = 'flex'
+    gameManager.gameState = 'Menu-Tutorial'
+    gameManager.tutorialSlide = 0
+    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
+})
+
+tutorialNextButton.addEventListener('click', () => {
+    gameManager.tutorialSlide++
+    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
+})
+
+tutorialPrevButton.addEventListener('click', () => {
+    gameManager.tutorialSlide--
+    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
+})
+
+tutorialCloseButton.addEventListener('click', () => {
+    tutorialDisplay.style.display = 'none'
+    gameManager.gameState = 'Main-Menu'
 })
 
 playButton.addEventListener('click', () => {

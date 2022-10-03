@@ -300,7 +300,14 @@ class Timer {
 class GameManager {
     constructor() {
         this.devMode = false
-        this.gameState = 'Menu'
+        this.gameState = 'Main-Menu'
+        this.tutorialSlide = 1
+        this.tutorialDescriptions = [
+            'Description 1',
+            'Description 2',
+            'Description 3',
+            'Description 4'
+        ]
         this.diskSpawnerId = null
         this.gravityLvl = 1
         this.skillRating = 0
