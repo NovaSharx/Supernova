@@ -105,6 +105,7 @@ class Detonator extends Sprite {
     update() {
         this.draw()
     }
+    
 }
 
 class Disk extends Sprite {
