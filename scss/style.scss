@@ -1,0 +1,313 @@
+@import "config";
+@import "utilities";
+
+body {
+    height: 100%;
+    @include star-background;
+    font-family: $font-stack;
+    font-weight: 400;
+    font-style: normal;
+    color: $primary-color
+}
+
+#shooting-star {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+}
+
+#dev-mode {
+    padding: 0px 10px;
+    text-align: right;
+    color: rgb(129, 129, 129);
+    transition: 0.5s;
+
+    &:hover {
+        cursor: pointer;
+        color: $primary-color
+    }
+}
+
+#title {
+    @include flex-center;
+    height: 300px;
+}
+
+#title-image {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center center;
+    transition: 2s filter ease-out, 1s width ease-out;
+
+    &:hover {
+        filter: hue-rotate(360deg);
+        width: 550px;
+    }
+}
+
+#game-container {
+    @include flex-center;
+    margin: 2em;
+}
+
+canvas {
+    border-radius: 500px;
+    box-shadow: 0px 0px 100px rgba(255, 255, 255, 1);
+}
+
+/* ~~~~~ MAIN MENU CONTAINER ~~~~~ */
+
+#main-menu-container {
+    display: flex;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 500px;
+    background-color: black;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-option {
+    color: #999;
+    transition: 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        color: $primary-color;
+        padding: 0 0 5px;
+    }
+}
+
+#tutorial-display {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    justify-content: center;
+    border-radius: 400px;
+    background-color: rgb(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 2;
+}
+
+#tutorial-title {
+    margin: 50px 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+    @include gradient-font-style;
+}
+
+#tutorial-slide {
+    display: flex;
+    margin: 50px 0px;
+}
+
+#tutorial-image {
+    margin: 0px 50px;
+    width: 300px;
+    height: 300px;
+    border: 2px solid $primary-color;
+    border-radius: 30px;
+}
+
+#tutorial-description {
+    width: 400px;
+    height: 300px;
+    font-size: 1.2em;
+    overflow-wrap: break-word;
+}
+
+@each $button in 'next',
+'prev',
+'close' {
+    ##{$button}-tutorial {
+        @include tutorial-button {
+            @if ($button =='close') {
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+#play-button {
+    @include flex-center;
+    align-items: flex-end;
+}
+
+#play-button-star {
+    position: absolute;
+}
+
+#play-button-swirl {
+    z-index: 1;
+    transition: 0.5s;
+
+    &:hover {
+        cursor: pointer;
+        transform: rotate(-360deg);
+    }
+}
+
+#play-game {
+    position: absolute;
+    text-align: center;
+    text-shadow: 2px 2px black;
+    pointer-events: none;
+    font-size: 3em;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* ~~~~~ IN GAME CONTAINER ~~~~~ */
+
+#in-game-container {
+    display: none;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+}
+
+#gravity-display {
+    margin-top: 20px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    @include gradient-font-style;
+}
+
+#gravity {
+    font-size: 1.5em;
+}
+
+#score-display {
+    margin: 0px 0px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#score {
+    font-size: 2em;
+    @include gradient-font-style;
+}
+
+#side-stats {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 800px;
+    height: 200px;
+    margin: 0px auto;
+}
+
+#streak-display {
+    display: inline-block;
+    width: 125px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+#streak {
+    padding: 0px 10px;
+    font-size: 1.5em;
+    @include gradient-font-style($heavy-gradient);
+}
+
+#scoremultiplier-display {
+    display: inline-block;
+    width: 125px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+#scoremultiplier {
+    font-size: 1.5em;
+    @include gradient-font-style($heavy-gradient);
+}
+
+/* ~~~~~ POST GAME CONTAINER ~~~~~ */
+
+#post-game-container {
+    display: none;
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 500px;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+#post-game-items {
+    height: 750px;
+}
+
+#post-game-stats {
+    text-align: center;
+}
+
+.post-game-stat-title {
+    font-size: 2em;
+    font-weight: bold;
+    @include gradient-font-style($rgb-gradient);
+}
+
+.post-game-stat-figure {
+    margin-bottom: 0.5em;
+    font-size: 3em;
+}
+
+#play-again-button {
+    @include flex-center;
+    align-items: flex-end;
+    width: min-content;
+    margin: 0em auto;
+}
+
+#play-again-image {
+    width: 150px;
+    transition: 0.5s;
+
+    &:hover {
+        cursor: pointer;
+        width: 160px;
+    }
+}
+
+#play-again {
+    text-shadow: 2px 2px black;
+    pointer-events: none;
+    font-size: 2em;
+    font-weight: bold;
+    position: absolute;
+}
+
+#back-to-menu {
+    width: 150px;
+    margin: 4em auto;
+
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+@keyframes pulse {
+    50% {
+        font-size: 2em;
+    }
+}
+
+@keyframes streakReset {
+    25% {
+        padding-left: 0px;
+    }
+
+    75% {
+        padding-right: 0px;
+    }
+}

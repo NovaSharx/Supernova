@@ -1,0 +1,33 @@
+@import "config";
+
+@mixin gradient-font-style($gradient: $light-gradient) {
+    background: -webkit-linear-gradient($gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin tutorial-button() {
+    width: 100%;
+    margin: 5px 0px;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    @content;
+}
+
+@mixin flex-center() {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin star-background() {
+    background-color: black;
+    background-image: url('../Assets/Images/Background_Body.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}

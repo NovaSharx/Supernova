@@ -1,0 +1,343 @@
+body {
+  height: 100%;
+  background-color: black;
+  background-image: url("../Assets/Images/Background_Body.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  font-family: "lores-12", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+}
+
+#shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+}
+
+#dev-mode {
+  padding: 0px 10px;
+  text-align: right;
+  color: rgb(129, 129, 129);
+  transition: 0.5s;
+}
+#dev-mode:hover {
+  cursor: pointer;
+  color: white;
+}
+
+#title {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+}
+
+#title-image {
+  width: 500px;
+  height: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+  transition: 2s filter ease-out, 1s width ease-out;
+}
+#title-image:hover {
+  filter: hue-rotate(360deg);
+  width: 550px;
+}
+
+#game-container {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+
+canvas {
+  border-radius: 500px;
+  box-shadow: 0px 0px 100px rgb(255, 255, 255);
+}
+
+/* ~~~~~ MAIN MENU CONTAINER ~~~~~ */
+#main-menu-container {
+  display: flex;
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 500px;
+  background-color: black;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menu-option {
+  color: #999;
+  transition: 0.3s;
+}
+.menu-option:hover {
+  cursor: pointer;
+  color: white;
+  padding: 0 0 5px;
+}
+
+#tutorial-display {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  justify-content: center;
+  border-radius: 400px;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  z-index: 2;
+}
+
+#tutorial-title {
+  margin: 50px 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 3em;
+  background: -webkit-linear-gradient(#eee, #555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#tutorial-slide {
+  display: flex;
+  margin: 50px 0px;
+}
+
+#tutorial-image {
+  margin: 0px 50px;
+  width: 300px;
+  height: 300px;
+  border: 2px solid white;
+  border-radius: 30px;
+}
+
+#tutorial-description {
+  width: 400px;
+  height: 300px;
+  font-size: 1.2em;
+  overflow-wrap: break-word;
+}
+
+#next-tutorial {
+  width: 100%;
+  margin: 5px 0px;
+  text-align: center;
+}
+#next-tutorial:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#prev-tutorial {
+  width: 100%;
+  margin: 5px 0px;
+  text-align: center;
+}
+#prev-tutorial:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#close-tutorial {
+  width: 100%;
+  margin: 5px 0px;
+  text-align: center;
+  margin-top: 30px;
+}
+#close-tutorial:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#play-button {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#play-button-star {
+  position: absolute;
+}
+
+#play-button-swirl {
+  z-index: 1;
+  transition: 0.5s;
+}
+#play-button-swirl:hover {
+  cursor: pointer;
+  transform: rotate(-360deg);
+}
+
+#play-game {
+  position: absolute;
+  text-align: center;
+  text-shadow: 2px 2px black;
+  pointer-events: none;
+  font-size: 3em;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* ~~~~~ IN GAME CONTAINER ~~~~~ */
+#in-game-container {
+  display: none;
+  position: absolute;
+  width: 900px;
+  height: 900px;
+}
+
+#gravity-display {
+  margin-top: 20px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  background: -webkit-linear-gradient(#eee, #555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#gravity {
+  font-size: 1.5em;
+}
+
+#score-display {
+  margin: 0px 0px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#score {
+  font-size: 2em;
+  background: -webkit-linear-gradient(#eee, #555);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#side-stats {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 800px;
+  height: 200px;
+  margin: 0px auto;
+}
+
+#streak-display {
+  display: inline-block;
+  width: 125px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#streak {
+  padding: 0px 10px;
+  font-size: 1.5em;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#scoremultiplier-display {
+  display: inline-block;
+  width: 125px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#scoremultiplier {
+  font-size: 1.5em;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ~~~~~ POST GAME CONTAINER ~~~~~ */
+#post-game-container {
+  display: none;
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 500px;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+}
+
+#post-game-items {
+  height: 750px;
+}
+
+#post-game-stats {
+  text-align: center;
+}
+
+.post-game-stat-title {
+  font-size: 2em;
+  font-weight: bold;
+  background: -webkit-linear-gradient(0deg, rgb(255, 0, 0) 0%, rgb(0, 255, 0) 50%, rgb(0, 0, 255) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.post-game-stat-figure {
+  margin-bottom: 0.5em;
+  font-size: 3em;
+}
+
+#play-again-button {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: -moz-min-content;
+  width: min-content;
+  margin: 0em auto;
+}
+
+#play-again-image {
+  width: 150px;
+  transition: 0.5s;
+}
+#play-again-image:hover {
+  cursor: pointer;
+  width: 160px;
+}
+
+#play-again {
+  text-shadow: 2px 2px black;
+  pointer-events: none;
+  font-size: 2em;
+  font-weight: bold;
+  position: absolute;
+}
+
+#back-to-menu {
+  width: 150px;
+  margin: 4em auto;
+}
+#back-to-menu:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@keyframes pulse {
+  50% {
+    font-size: 2em;
+  }
+}
+@keyframes streakReset {
+  25% {
+    padding-left: 0px;
+  }
+  75% {
+    padding-right: 0px;
+  }
+}/*# sourceMappingURL=style.css.map */
