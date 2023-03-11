@@ -1,10 +1,37 @@
+interface position {
+    x: number,
+    y: number
+}
+
+interface SpriteProperties {
+    position: position,
+    width: number,
+    height: number,
+    imageSrc: string,
+}
+
+interface ColoredSpriteProperties extends SpriteProperties {
+    color: string
+}
+
+interface DiskSpriteProperties extends SpriteProperties {
+    id: string,
+    bonusState: boolean,
+}
+
 class Sprite {
+
+    position: position
+    width: number
+    height: number
+    image: HTMLImageElement
+
     constructor({
         position,
         width,
         height,
         imageSrc,
-    }) {
+    }: SpriteProperties) {
         this.position = position
         this.width = width
         this.height = height
@@ -25,13 +52,20 @@ class Sprite {
 }
 
 class Runway extends Sprite {
+
+    color: string | undefined
+    strokeStrength: number
+    powerBar: number
+    bonusState: boolean
+    bonusDurationID: number | undefined
+
     constructor({
         position,
         width,
         height,
         color,
         imageSrc
-    }) {
+    }: ColoredSpriteProperties) {
         super({
             position,
             width,
@@ -83,13 +117,16 @@ class Runway extends Sprite {
 }
 
 class Detonator extends Sprite {
+
+    color: string | undefined
+
     constructor({
         position,
         width,
         height,
         color,
         imageSrc
-    }) {
+    }: ColoredSpriteProperties) {
         super({
             position,
             width,
@@ -105,10 +142,15 @@ class Detonator extends Sprite {
     update() {
         this.draw()
     }
-    
+
 }
 
 class Disk extends Sprite {
+    hasPassed: boolean;
+    gotErased: boolean;
+    id: string;
+    gotHit: boolean;
+    bonusState: boolean;
     constructor({
         position,
         width,
@@ -116,7 +158,7 @@ class Disk extends Sprite {
         imageSrc,
         bonusState,
         id
-    }) {
+    }: DiskSpriteProperties) {
         super({
             position,
             width,
@@ -168,7 +210,7 @@ class Disk extends Sprite {
         gameManager.updateStreak('hit')
         this.processAccuracy()
         this.gotHit = true
-        let target
+        let target: Disk | undefined
         setTimeout(() => {
             switch (this.id) {
                 case 'red':
@@ -230,7 +272,7 @@ class Disk extends Sprite {
         if (!this.gotHit) {
             this.image.src = `./Assets/Images/Missed_Disk_${this.id}.png`
         }
-        let target
+        let target: Disk
         setTimeout(() => {
             switch (this.id) {
                 case 'red':
@@ -262,6 +304,12 @@ class Disk extends Sprite {
 }
 
 class Timer {
+
+    currentTimerId: number | undefined
+    currentTime: number
+    maxTime: number
+    timeRemainingFraction: number
+
     constructor() {
         this.currentTimerId
         this.currentTime = 0
@@ -557,7 +605,7 @@ class GameManager {
         finalScoreDisplay.innerHTML = this.currentScore
         highestGravityDisplay.innerHTML = `Level ${this.highestGravity}`
         longestStreakDisplay.innerHTML = this.longestStreak
-        disksHitDisplay.innerHTML = `${this.diskHitCount} out of ${this.disksSpawned} (${Math.floor((this.diskHitCount/this.disksSpawned) * 100)}%)`
+        disksHitDisplay.innerHTML = `${this.diskHitCount} out of ${this.disksSpawned} (${Math.floor((this.diskHitCount / this.disksSpawned) * 100)}%)`
         averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
 
         mainMenuDisplay.style.display = 'none'
