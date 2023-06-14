@@ -178,8 +178,8 @@ class Disk extends Sprite {
 
         this.image = new Image()
         this.image.src = imageSrc
-        this.width = 150
-        this.height = 150
+        this.width = width
+        this.height = height
         this.hasPassed = false
         this.gotErased = false
         this.gotHit = false

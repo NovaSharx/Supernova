@@ -1,4 +1,4 @@
-const shootingStarDisplay: HTMLElement = document.getElementById('shooting-star')!
+const shootingStarDisplay = document.getElementById('shooting-star')!
 
 const devModeButton: HTMLElement = document.getElementById('dev-mode')!
 
@@ -32,14 +32,14 @@ const hitAudio: HTMLAudioElement = new Audio('./Assets/Audio/HitShort.wav')!
 const missAudio: HTMLAudioElement = new Audio('./Assets/Audio/Miss.wav')!
 const logoSwirlAudio: HTMLAudioElement = new Audio('./Assets/Audio/Logo_SwirlShort.wav')!
 
-function renderSpawningMask() {
+function renderSpawningMask(): void {
     ctx.fillStyle = 'black'
     ctx.fillRect(runwayRed.position.x - 3, 0, gameplayDetails.runwayWidth * 3 + gameplayDetails.runwayOffset * 3, gameplayDetails.position.y - 1)
 }
 
-function spawnDisk(id: string) {
-    let columnPosX
-    let runwayBonusState = false
+function spawnDisk(id: string): void {
+    let columnPosX: number = 0
+    let runwayBonusState: boolean = false
 
     switch (id) {
         case 'red':
@@ -62,14 +62,16 @@ function spawnDisk(id: string) {
             break;
     }
 
-    let disk = new Disk({
+    let disk: Disk = new Disk({
         position: {
             x: columnPosX,
             y: gameplayDetails.position.y - 150
         },
         imageSrc: `./Assets/Images/Disk_${id}.png`,
         bonusState: runwayBonusState,
-        id: id
+        id: id,
+        width: 150,
+        height: 150
     })
 
     if (disk.bonusState) {
@@ -90,17 +92,17 @@ function spawnDisk(id: string) {
     gameManager.disksSpawned++
 }
 
-function runwayDiskSpawner(id) {
-    setTimeout(() => {
+function runwayDiskSpawner(id: string): void {
+    setTimeout((): void => {
         spawnDisk(id)
         runwayDiskSpawner(id)
     }, 4000 / gameManager.gravity);
 }
 
-function randomDiskSpawner() {
-    gameManager.diskSpawnerId = setTimeout(() => {
-        let random = Math.floor(Math.random() * 3)
-        let id
+function randomDiskSpawner(): void {
+    gameManager.diskSpawnerId = setTimeout((): void => {
+        let random: number = Math.floor(Math.random() * 3)
+        let id: string = ''
         switch (random) {
             case 0:
                 id = 'red'
@@ -117,7 +119,7 @@ function randomDiskSpawner() {
     }, 4000 / gameManager.gravity)
 }
 
-function diskMissed(id) {
+function diskMissed(id: string): void {
     switch (id) {
         case 'red':
             detonatorRed.image.src = './Assets/Images/Detonator_Miss_red.png'
@@ -137,32 +139,32 @@ function diskMissed(id) {
     missAudio.play()
 }
 
-function spawnShootingStar() {
-    shootingStarDisplay.src = './Assets/Images/Shooting_Star_07.png'
-    let position = {
+function spawnShootingStar(): void {
+    (shootingStarDisplay as HTMLImageElement).src = './Assets/Images/Shooting_Star_07.png'
+    let position: position = {
         x: Math.floor(Math.random() * (window.innerWidth - 150) + 1),
         y: Math.floor(Math.random() * (window.innerHeight - 150) + 1)
     }
-    setTimeout(() => {
-        shootingStarDisplay.style.top = `${position.y}px`
-        shootingStarDisplay.style.left = `${position.x}px`
-        shootingStarDisplay.src = './Assets/Images/Shooting_Star.gif'
+    setTimeout((): void => {
+        shootingStarDisplay.style.top = `${position.y}px`;
+        shootingStarDisplay.style.left = `${position.x}px`;
+        (shootingStarDisplay as HTMLImageElement).src = './Assets/Images/Shooting_Star.gif'
     }, 0)
 }
 
 // Generate a shooting star between minTIme and maxTime perpetually
-function randomShootingStars() {
-    let minTime = 30000
-    let maxTime = 600000
-    let randomTime = Math.floor((Math.random() * (maxTime - minTime + 1)) + minTime)
-    setTimeout(() => {
+function randomShootingStars(): void {
+    let minTime: number = 30000
+    let maxTime: number = 600000
+    let randomTime: number = Math.floor((Math.random() * (maxTime - minTime + 1)) + minTime)
+    setTimeout((): void => {
         spawnShootingStar()
         randomShootingStars()
     }, randomTime)
 }
 
-function promptDevMode() {
-    response = window.prompt('Please ENTER the Password')
+function promptDevMode(): void {
+    let response: string = window.prompt('Please ENTER the Password')!
     if (response === 'nova') {
         gameManager.devMode = true
         devModeButton.style.color = 'white'
@@ -172,7 +174,7 @@ function promptDevMode() {
     }
 }
 
-window.addEventListener('keypress', (event) => {
+window.addEventListener('keypress', (event: KeyboardEvent): void => {
     if (gameManager.gameState === 'Active') {
         switch (event.key) {
 
@@ -240,7 +242,7 @@ window.addEventListener('keypress', (event) => {
     }
 })
 
-window.addEventListener('keyup', (event) => {
+window.addEventListener('keyup', (event: KeyboardEvent): void => {
     switch (event.key) {
         case 'a':
             detonatorRed.image.src = './Assets/Images/Detonator_red.png'
@@ -254,7 +256,7 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-devModeButton.addEventListener('click', () => {
+devModeButton.addEventListener('click', (): void => {
     if (!gameManager.devMode) {
         promptDevMode()
     } else {
@@ -263,45 +265,45 @@ devModeButton.addEventListener('click', () => {
     }
 })
 
-tutorialButton.addEventListener('click', () => {
+tutorialButton.addEventListener('click', (): void => {
     tutorialDisplay.style.display = 'flex'
     gameManager.gameState = 'Menu-Tutorial'
-    gameManager.tutorialSlide = 0
-    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    gameManager.tutorialSlide = 0;
+    (tutorialImage as HTMLImageElement).src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
     tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
 })
 
-tutorialNextButton.addEventListener('click', () => {
+tutorialNextButton.addEventListener('click', (): void => {
     gameManager.tutorialSlide++
     if (gameManager.tutorialSlide > 8) {
         gameManager.tutorialSlide = 0
     }
-    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    (tutorialImage as HTMLImageElement).src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
     tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
 })
 
-tutorialPrevButton.addEventListener('click', () => {
+tutorialPrevButton.addEventListener('click', (): void => {
     gameManager.tutorialSlide--
     if (gameManager.tutorialSlide < 0) {
         gameManager.tutorialSlide = 8
     }
-    tutorialImage.src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
+    (tutorialImage as HTMLImageElement).src = `./Assets/Images/tutorial_slide_${gameManager.tutorialSlide}.jpg`
     tutorialDescription.innerHTML = gameManager.tutorialDescriptions[gameManager.tutorialSlide]
 })
 
-tutorialCloseButton.addEventListener('click', () => {
+tutorialCloseButton.addEventListener('click', (): void => {
     tutorialDisplay.style.display = 'none'
     gameManager.gameState = 'Main-Menu'
 })
 
-playButton.addEventListener('click', () => {
+playButton.addEventListener('click', (): void => {
     gameManager.startGame()
 })
 
-playAgainButton.addEventListener('click', () => {
+playAgainButton.addEventListener('click', (): void => {
     gameManager.startGame()
 })
 
-backToMenuButton.addEventListener('click', () => {
+backToMenuButton.addEventListener('click', (): void => {
     gameManager.loadMainMenu()
 })
