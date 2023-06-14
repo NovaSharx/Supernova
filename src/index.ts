@@ -36,7 +36,7 @@ const runwayRed: Runway = new Runway({
     height: gameplayDetails.runwayHeight,
     color: triColors[0]
 })
-const runwayGreen = new Runway({
+const runwayGreen: Runway = new Runway({
     position: {
         x: runwayRed.position.x + gameplayDetails.runwayWidth + gameplayDetails.runwayOffset,
         y: gameplayDetails.position.y
@@ -45,7 +45,7 @@ const runwayGreen = new Runway({
     height: gameplayDetails.runwayHeight,
     color: triColors[1]
 })
-const runwayBlue = new Runway({
+const runwayBlue: Runway = new Runway({
     position: {
         x: runwayGreen.position.x + gameplayDetails.runwayWidth + gameplayDetails.runwayOffset,
         y: gameplayDetails.position.y
@@ -55,7 +55,7 @@ const runwayBlue = new Runway({
     color: triColors[2]
 })
 
-const detonatorRed = new Detonator({
+const detonatorRed: Detonator = new Detonator({
     position: {
         x: runwayRed.position.x,
         y: runwayRed.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
@@ -65,7 +65,7 @@ const detonatorRed = new Detonator({
     color: triColors[0],
     imageSrc: './Assets/Images/Detonator_red.png'
 })
-const detonatorGreen = new Detonator({
+const detonatorGreen: Detonator = new Detonator({
     position: {
         x: runwayGreen.position.x,
         y: runwayGreen.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
@@ -75,7 +75,7 @@ const detonatorGreen = new Detonator({
     color: triColors[1],
     imageSrc: './Assets/Images/Detonator_green.png'
 })
-const detonatorBlue = new Detonator({
+const detonatorBlue: Detonator = new Detonator({
     position: {
         x: runwayBlue.position.x,
         y: runwayBlue.position.y + gameplayDetails.runwayHeight + gameplayDetails.runwayOffset
@@ -86,8 +86,8 @@ const detonatorBlue = new Detonator({
     imageSrc: './Assets/Images/Detonator_blue.png'
 })
 
-function animate() {
-    setTimeout(function () { window.requestAnimationFrame(animate) }, 1000 / refreshRate)
+function animate(): void {
+    setTimeout((): void => { window.requestAnimationFrame(animate) }, 1000 / refreshRate)
 
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -100,19 +100,19 @@ function animate() {
     detonatorGreen.update()
     detonatorBlue.update()
 
-    diskAssembly.red.forEach((disk) => {
+    diskAssembly.red.forEach((disk: Disk):void => {
         disk.update()
     })
-    diskAssembly.green.forEach((disk) => {
+    diskAssembly.green.forEach((disk: Disk):void => {
         disk.update()
     })
-    diskAssembly.blue.forEach((disk) => {
+    diskAssembly.blue.forEach((disk: Disk):void => {
         disk.update()
     })
-    diskAssembly.hitDisks.forEach((disk) => {
+    diskAssembly.hitDisks.forEach((disk: Disk):void => {
         disk.update()
     })
-    diskAssembly.missedDisks.forEach((disk) => {
+    diskAssembly.missedDisks.forEach((disk: Disk):void => {
         disk.update()
     })
 
@@ -121,6 +121,6 @@ function animate() {
     gameTimer.render()
 }
 
-animate()
+animate() // Render game
 
-randomShootingStars()
+randomShootingStars() // Animate shooting stars
