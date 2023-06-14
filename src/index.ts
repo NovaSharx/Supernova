@@ -9,7 +9,7 @@ const refreshRate: number = 60 // fps
 const gameManager: GameManager = new GameManager()
 const gameTimer: Timer = new Timer()
 
-var diskAssembly = {
+var diskAssembly: DiskAssembly = {
     red: [],
     green: [],
     blue: [],

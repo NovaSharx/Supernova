@@ -1,3 +1,11 @@
+interface DiskAssembly {
+    red: Disk[],
+    green: Disk[],
+    blue: Disk[],
+    hitDisks: Disk[],
+    missedDisks: Disk[]
+}
+
 interface position {
     x: number,
     y: number
@@ -212,21 +220,21 @@ class Disk extends Sprite {
         gameManager.updateStreak('hit')
         this.processAccuracy()
         this.gotHit = true
-        let target: Disk | undefined
+        let target: Disk
         setTimeout(() => {
             switch (this.id) {
                 case 'red':
-                    target = diskAssembly.red.shift()
+                    target = diskAssembly.red.shift()!
                     diskAssembly.hitDisks.push(target)
                     detonatorRed.image.src = './Assets/Images/Detonator_Hit_red.png'
                     break;
                 case 'green':
-                    target = diskAssembly.green.shift()
+                    target = diskAssembly.green.shift()!
                     diskAssembly.hitDisks.push(target)
                     detonatorGreen.image.src = './Assets/Images/Detonator_Hit_green.png'
                     break;
                 case 'blue':
-                    target = diskAssembly.blue.shift()
+                    target = diskAssembly.blue.shift()!
                     diskAssembly.hitDisks.push(target)
                     detonatorBlue.image.src = './Assets/Images/Detonator_Hit_blue.png'
                     break;
@@ -274,19 +282,19 @@ class Disk extends Sprite {
         if (!this.gotHit) {
             this.image.src = `./Assets/Images/Missed_Disk_${this.id}.png`
         }
-        let target: Disk | undefined
+        let target: Disk
         setTimeout(() => {
             switch (this.id) {
                 case 'red':
-                    target = diskAssembly.red.shift()
+                    target = diskAssembly.red.shift()!
                     diskAssembly.missedDisks.push(target)
                     break;
                 case 'green':
-                    target = diskAssembly.green.shift()
+                    target = diskAssembly.green.shift()!
                     diskAssembly.missedDisks.push(target)
                     break;
                 case 'blue':
-                    target = diskAssembly.blue.shift()
+                    target = diskAssembly.blue.shift()!
                     diskAssembly.missedDisks.push(target)
                     break;
             }
