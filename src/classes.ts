@@ -7,7 +7,7 @@ interface SpriteProperties {
     position: position,
     width: number,
     height: number,
-    imageSrc: string,
+    imageSrc?: string,
 }
 
 interface ColoredSpriteProperties extends SpriteProperties {
@@ -30,16 +30,16 @@ class Sprite {
         position,
         width,
         height,
-        imageSrc,
+        imageSrc = '',
     }: SpriteProperties) {
         this.position = position
         this.width = width
         this.height = height
         this.image = new Image()
-        // this.image.src = imageSrc
+        this.image.src = imageSrc
     }
 
-    draw() {
+    draw(): void {
         //image to be drawn
         ctx.drawImage(
             this.image,
@@ -53,7 +53,7 @@ class Sprite {
 
 class Runway extends Sprite {
 
-    color: string | undefined
+    color: string
     strokeStrength: number
     powerBar: number
     bonusState: boolean
@@ -63,8 +63,8 @@ class Runway extends Sprite {
         position,
         width,
         height,
-        color,
-        imageSrc
+        imageSrc = '',
+        color
     }: ColoredSpriteProperties) {
         super({
             position,
@@ -74,7 +74,7 @@ class Runway extends Sprite {
         })
 
         this.image = new Image()
-        // this.image.src = imageSrc
+        this.image.src = imageSrc
         this.color = color
         this.strokeStrength = 2
         this.powerBar = 0
@@ -82,7 +82,7 @@ class Runway extends Sprite {
         this.bonusDurationID
     }
 
-    render() {
+    render(): void {
         ctx.lineWidth = this.strokeStrength
         ctx.fillStyle = this.color + '50'
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height * (this.powerBar / 100))
@@ -90,14 +90,14 @@ class Runway extends Sprite {
         ctx.strokeRect(this.position.x, this.position.y, this.width, this.height)
     }
 
-    update() {
+    update(): void {
         if (this.powerBar >= 100 && !this.bonusState) {
             this.activatBonusState()
         }
         this.render()
     }
 
-    activatBonusState() {
+    activatBonusState(): void {
         this.bonusState = true
         this.strokeStrength = 5
         this.bonusDurationID = setInterval(() => {
@@ -109,7 +109,7 @@ class Runway extends Sprite {
         }, 10)
     }
 
-    deactivateBonusState() {
+    deactivateBonusState(): void {
         clearInterval(this.bonusDurationID)
         this.bonusState = false
         this.strokeStrength = 2
@@ -118,14 +118,14 @@ class Runway extends Sprite {
 
 class Detonator extends Sprite {
 
-    color: string | undefined
+    color: string
 
     constructor({
         position,
         width,
         height,
         color,
-        imageSrc
+        imageSrc = ''
     }: ColoredSpriteProperties) {
         super({
             position,
@@ -139,23 +139,25 @@ class Detonator extends Sprite {
         this.color = color
     }
 
-    update() {
+    update(): void {
         this.draw()
     }
 
 }
 
 class Disk extends Sprite {
+
     hasPassed: boolean;
     gotErased: boolean;
     id: string;
     gotHit: boolean;
     bonusState: boolean;
+
     constructor({
         position,
         width,
         height,
-        imageSrc,
+        imageSrc = '',
         bonusState,
         id
     }: DiskSpriteProperties) {
@@ -177,7 +179,7 @@ class Disk extends Sprite {
         this.id = id
     }
 
-    update() {
+    update(): void {
         this.draw()
         this.position.y += gameManager.gravity
 
@@ -192,7 +194,7 @@ class Disk extends Sprite {
         }
     }
 
-    detonate() {
+    detonate(): void {
         if (!this.gotHit &&
             this.position.y - 50 + this.height > detonatorRed.position.y &&
             this.position.y + 50 < detonatorRed.position.y + detonatorRed.height) {
@@ -202,7 +204,7 @@ class Disk extends Sprite {
         }
     }
 
-    diskGotHit() {
+    diskGotHit(): void {
         gameManager.diskHitCount++
         hitAudio.load()
         hitAudio.play()
@@ -232,14 +234,14 @@ class Disk extends Sprite {
         }, 0)
     }
 
-    processAccuracy() {
+    processAccuracy(): void {
         if (this.bonusState) {
             this.image.src = `./Assets/Images/Accuracy_BONUS_${this.id}.png`
             gameManager.updateScore(300)
         } else {
 
-            let offset = Math.abs(this.position.y - detonatorRed.position.y)
-            let percentage = Math.round(((95 - offset) / 95) * 100)
+            let offset: number = Math.abs(this.position.y - detonatorRed.position.y)
+            let percentage: number = Math.round(((95 - offset) / 95) * 100)
 
             gameManager.accuracySum += percentage
             gameManager.averageAccuracy = Math.round(gameManager.accuracySum / gameManager.diskHitCount)
@@ -265,14 +267,14 @@ class Disk extends Sprite {
         }
     }
 
-    diskHasPassed() {
+    diskHasPassed(): void {
         gameManager.updateSkillRating('lose')
         gameManager.updateStreak('miss')
         this.hasPassed = true
         if (!this.gotHit) {
             this.image.src = `./Assets/Images/Missed_Disk_${this.id}.png`
         }
-        let target: Disk
+        let target: Disk | undefined
         setTimeout(() => {
             switch (this.id) {
                 case 'red':
@@ -291,9 +293,9 @@ class Disk extends Sprite {
         }, 0)
     }
 
-    eraseDisk() {
+    eraseDisk(): void {
         this.gotErased = true
-        setTimeout(() => {
+        setTimeout((): void => {
             if (this.gotHit) {
                 diskAssembly.hitDisks.shift()
             } else {
@@ -317,7 +319,7 @@ class Timer {
         this.timeRemainingFraction = this.currentTime / this.maxTime
     }
 
-    render() {
+    render(): void {
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'
         ctx.lineWidth = 5
         ctx.beginPath()
@@ -325,7 +327,7 @@ class Timer {
         ctx.stroke()
     }
 
-    beginTimer() {
+    beginTimer(): void {
         this.currentTime = this.maxTime
         this.timeRemainingFraction = this.currentTime / this.maxTime
         this.currentTimerId = setInterval(() => {
@@ -339,7 +341,7 @@ class Timer {
         }, 10);
     }
 
-    endTimer() {
+    endTimer(): void {
         clearInterval(this.currentTimerId)
         this.currentTime = 0
         this.timeRemainingFraction = this.currentTime / this.maxTime
@@ -347,6 +349,25 @@ class Timer {
 }
 
 class GameManager {
+
+    devMode: boolean
+    gameState: string
+    tutorialSlide: number
+    tutorialDescriptions: string[]
+    diskSpawnerId: number | undefined
+    gravityLvl: number
+    skillRating: number
+    gravity: number
+    currentScore: number
+    streakCounter: number
+    scoreMultiplier: number
+    disksSpawned: number
+    diskHitCount: number
+    accuracySum: number
+    averageAccuracy: number
+    highestGravity: number
+    longestStreak: number
+
     constructor() {
         this.devMode = false
         this.gameState = 'Main-Menu'
@@ -362,7 +383,7 @@ class GameManager {
             `POWER BAR BONUS MODE <br><br> Hitting an accuracy rating of 'Perfect' or 'Super Perfect' grants you powerbar points for it's respective column up to 100 points. Once you hit the cap your power bar will start to shrink and will spawn special 'Bonus Disks'. Hitting a Bonus Disk grants you 300 points regardless of accuracy (That's triple the max of a regular disk). They do not grant power bar points.`,
             `EASTER EGG <br><br> Press the 'E' key to make a wish ; )`
         ]
-        this.diskSpawnerId = null
+        this.diskSpawnerId = undefined
         this.gravityLvl = 1
         this.skillRating = 0
         this.gravity = 4 + this.gravityLvl //gravity should be from 5 to 15 i.e lvl 1 to 10
@@ -377,8 +398,8 @@ class GameManager {
         this.longestStreak = 0
     }
 
-    resetGameValues() {
-        this.diskSpawnerId = null
+    resetGameValues(): void {
+        this.diskSpawnerId = undefined
         this.gravityLvl = 1
         this.gravity = 4 + this.gravityLvl
         this.skillRating = 0
@@ -404,13 +425,13 @@ class GameManager {
         runwayRed.deactivateBonusState()
         runwayGreen.deactivateBonusState()
         runwayBlue.deactivateBonusState()
-        gravityLevelDisplay.innerHTML = this.gravityLvl
-        scoreDisplay.innerHTML = this.currentScore
-        streakDisplay.innerHTML = this.streakCounter
-        scoreMultiplierDisplay.innerHTML = this.scoreMultiplier
+        gravityLevelDisplay.innerHTML = String(this.gravityLvl)
+        scoreDisplay.innerHTML = String(this.currentScore)
+        streakDisplay.innerHTML = String(this.streakCounter)
+        scoreMultiplierDisplay.innerHTML = String(this.scoreMultiplier)
     }
 
-    startGame() {
+    startGame(): void {
         this.resetGameValues()
         this.gameState = 'Active'
         mainMenuDisplay.style.display = 'none'
@@ -422,12 +443,12 @@ class GameManager {
         randomDiskSpawner()
     }
 
-    updateScore(score) {
+    updateScore(score: number): void {
         this.currentScore += (score * this.scoreMultiplier)
-        scoreDisplay.innerHTML = this.currentScore
+        scoreDisplay.innerHTML = String(this.currentScore)
     }
 
-    updateStreak(value) {
+    updateStreak(value: string): void {
         switch (value) {
             case 'miss':
                 this.streakCounter = 0
@@ -450,14 +471,14 @@ class GameManager {
             this.longestStreak = this.streakCounter
         }
 
-        streakDisplay.innerHTML = this.streakCounter
+        streakDisplay.innerHTML = String(this.streakCounter)
     }
 
-    updateMultiplier() {
+    updateMultiplier(): void {
         if (this.streakCounter >= 25) {
             if (this.scoreMultiplier != 4) {
                 scoreMultiplierDisplay.style.animation = 'none'
-                setTimeout(() => {
+                setTimeout((): void => {
                     scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
@@ -468,7 +489,7 @@ class GameManager {
         else if (this.streakCounter >= 15) {
             if (this.scoreMultiplier != 3) {
                 scoreMultiplierDisplay.style.animation = 'none'
-                setTimeout(() => {
+                setTimeout((): void => {
                     scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
@@ -479,7 +500,7 @@ class GameManager {
         else if (this.streakCounter >= 5) {
             if (this.scoreMultiplier != 2) {
                 scoreMultiplierDisplay.style.animation = 'none'
-                setTimeout(() => {
+                setTimeout((): void => {
                     scoreMultiplierDisplay.style.animation = '0.2s pulse'
                 })
             }
@@ -494,7 +515,7 @@ class GameManager {
         scoreMultiplierDisplay.innerHTML = `x${this.scoreMultiplier}`
     }
 
-    increasePowerBar(id, power) {
+    increasePowerBar(id: string, power: number): void {
         switch (id) {
             case 'red':
                 if (!runwayRed.bonusState) {
@@ -523,7 +544,7 @@ class GameManager {
         }
     }
 
-    updateSkillRating(value) {
+    updateSkillRating(value: string): void {
         switch (value) {
             case 'gain':
                 this.skillRating += 10
@@ -540,13 +561,13 @@ class GameManager {
         }
     }
 
-    promoteRank() {
+    promoteRank(): void {
         if (this.gravityLvl >= 10) {
             this.skillRating = 100
         } else {
             this.gravityLvl++
             gravityLevelDisplay.style.animation = 'none'
-            setTimeout(() => {
+            setTimeout((): void => {
                 gravityLevelDisplay.style.animation = '0.2s pulse'
             }, 0)
             this.updateGravityLevel()
@@ -554,7 +575,7 @@ class GameManager {
         }
     }
 
-    demoteRank() {
+    demoteRank(): void {
         if (this.gravityLvl <= 1) {
             this.gravityLvl = 1
         } else {
@@ -564,7 +585,7 @@ class GameManager {
         this.skillRating = 0
     }
 
-    updateGravityLevel() {
+    updateGravityLevel(): void {
         canvas.style.transition = '1s'
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, ${this.gravityLvl / 15})`
         this.gravity = 4 + this.gravityLvl
@@ -573,10 +594,10 @@ class GameManager {
             this.highestGravity = this.gravityLvl
         }
 
-        gravityLevelDisplay.innerHTML = this.gravityLvl
+        gravityLevelDisplay.innerHTML = String(this.gravityLvl)
     }
 
-    endGame() {
+    endGame(): void {
         clearTimeout(this.diskSpawnerId)
         this.finishUpGame()
     }
@@ -602,9 +623,9 @@ class GameManager {
         canvas.style.transition = '1s'
         canvas.style.boxShadow = `0px 0px 100px rgba(255, 255, 255, 0.1)`
 
-        finalScoreDisplay.innerHTML = this.currentScore
+        finalScoreDisplay.innerHTML = String(this.currentScore)
         highestGravityDisplay.innerHTML = `Level ${this.highestGravity}`
-        longestStreakDisplay.innerHTML = this.longestStreak
+        longestStreakDisplay.innerHTML = String(this.longestStreak)
         disksHitDisplay.innerHTML = `${this.diskHitCount} out of ${this.disksSpawned} (${Math.floor((this.diskHitCount / this.disksSpawned) * 100)}%)`
         averageAccuracyDisplay.innerHTML = `${this.averageAccuracy}%`
 

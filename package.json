@@ -1,0 +1,23 @@
+{
+  "name": "supernova",
+  "version": "1.0.0",
+  "description": "~ DESCRIPTION ~\r This is a hand eye coordination focused arcade game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NovaSharx/Supernova.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NovaSharx/Supernova/issues"
+  },
+  "homepage": "https://github.com/NovaSharx/Supernova#readme",
+  "dependencies": {
+    "typescript": "^5.1.3"
+  }
+}

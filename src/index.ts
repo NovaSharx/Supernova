@@ -1,13 +1,13 @@
-const canvas = document.querySelector('canvas')
-const ctx = canvas.getContext('2d')
+const canvas: HTMLCanvasElement = document.querySelector('canvas')!
+const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!
 
 canvas.width = 900
 canvas.height = 900
 
-const refreshRate = 60 // fps
+const refreshRate: number = 60 // fps
 
-const gameManager = new GameManager()
-const gameTimer = new Timer()
+const gameManager: GameManager = new GameManager()
+const gameTimer: Timer = new Timer()
 
 var diskAssembly = {
     red: [],
@@ -18,18 +18,18 @@ var diskAssembly = {
 }
 
 //red, green, blue
-const triColors = ['#DB3324', '#24DB33', '#3324DB']
+const triColors: string[] = ['#DB3324', '#24DB33', '#3324DB']
 
 const gameplayDetails = {
-    position: {x: null, y: 150},
+    position: { x: null, y: 150 },
     runwayWidth: 150,
     runwayHeight: 500,
     runwayOffset: 10
 }
 
-const runwayRed = new Runway({
+const runwayRed: Runway = new Runway({
     position: {
-        x: (canvas.width/2) - (gameplayDetails.runwayWidth * 1.5) - gameplayDetails.runwayOffset,
+        x: (canvas.width / 2) - (gameplayDetails.runwayWidth * 1.5) - gameplayDetails.runwayOffset,
         y: gameplayDetails.position.y
     },
     width: gameplayDetails.runwayWidth,

@@ -1,43 +1,43 @@
-const shootingStarDisplay = document.getElementById('shooting-star')
+const shootingStarDisplay: HTMLElement = document.getElementById('shooting-star')!
 
-const devModeButton = document.getElementById('dev-mode')
+const devModeButton: HTMLElement = document.getElementById('dev-mode')!
 
-const mainMenuDisplay = document.getElementById('main-menu-container')
-const tutorialButton = document.getElementById('tutorial')
-const tutorialDisplay = document.getElementById('tutorial-display')
-const tutorialImage = document.getElementById('tutorial-image')
-const tutorialDescription = document.getElementById('tutorial-description')
-const tutorialNextButton = document.getElementById('next-tutorial')
-const tutorialPrevButton = document.getElementById('prev-tutorial')
-const tutorialCloseButton = document.getElementById('close-tutorial')
-const playButton = document.getElementById('play-button')
-const settingsButton = document.getElementById('settings')
+const mainMenuDisplay: HTMLElement = document.getElementById('main-menu-container')!
+const tutorialButton: HTMLElement = document.getElementById('tutorial')!
+const tutorialDisplay: HTMLElement = document.getElementById('tutorial-display')!
+const tutorialImage: HTMLElement = document.getElementById('tutorial-image')!
+const tutorialDescription: HTMLElement = document.getElementById('tutorial-description')!
+const tutorialNextButton: HTMLElement = document.getElementById('next-tutorial')!
+const tutorialPrevButton: HTMLElement = document.getElementById('prev-tutorial')!
+const tutorialCloseButton: HTMLElement = document.getElementById('close-tutorial')!
+const playButton: HTMLElement = document.getElementById('play-button')!
+const settingsButton: HTMLElement = document.getElementById('settings')!
 
-const inGameDisplay = document.getElementById('in-game-container')
-const scoreDisplay = document.getElementById('score')
-const streakDisplay = document.getElementById('streak')
-const scoreMultiplierDisplay = document.getElementById('scoremultiplier')
-const gravityLevelDisplay = document.getElementById('gravity')
+const inGameDisplay: HTMLElement = document.getElementById('in-game-container')!
+const scoreDisplay: HTMLElement = document.getElementById('score')!
+const streakDisplay: HTMLElement = document.getElementById('streak')!
+const scoreMultiplierDisplay: HTMLElement = document.getElementById('scoremultiplier')!
+const gravityLevelDisplay: HTMLElement = document.getElementById('gravity')!
 
-const postGameDisplay = document.getElementById('post-game-container')
-const finalScoreDisplay = document.getElementById('stat-final-score')
-const highestGravityDisplay = document.getElementById('stat-highest-gravity')
-const longestStreakDisplay = document.getElementById('stat-longest-streak')
-const disksHitDisplay = document.getElementById('stat-disks-hit')
-const averageAccuracyDisplay = document.getElementById('stat-average-accuracy')
-const playAgainButton = document.getElementById('play-again-button')
-const backToMenuButton = document.getElementById('back-to-menu')
+const postGameDisplay: HTMLElement = document.getElementById('post-game-container')!
+const finalScoreDisplay: HTMLElement = document.getElementById('stat-final-score')!
+const highestGravityDisplay: HTMLElement = document.getElementById('stat-highest-gravity')!
+const longestStreakDisplay: HTMLElement = document.getElementById('stat-longest-streak')!
+const disksHitDisplay: HTMLElement = document.getElementById('stat-disks-hit')!
+const averageAccuracyDisplay: HTMLElement = document.getElementById('stat-average-accuracy')!
+const playAgainButton: HTMLElement = document.getElementById('play-again-button')!
+const backToMenuButton: HTMLElement = document.getElementById('back-to-menu')!
 
-const hitAudio = new Audio('./Assets/Audio/HitShort.wav')
-const missAudio = new Audio('./Assets/Audio/Miss.wav')
-const logoSwirlAudio = new Audio ('./Assets/Audio/Logo_SwirlShort.wav')
+const hitAudio: HTMLAudioElement = new Audio('./Assets/Audio/HitShort.wav')!
+const missAudio: HTMLAudioElement = new Audio('./Assets/Audio/Miss.wav')!
+const logoSwirlAudio: HTMLAudioElement = new Audio('./Assets/Audio/Logo_SwirlShort.wav')!
 
 function renderSpawningMask() {
     ctx.fillStyle = 'black'
     ctx.fillRect(runwayRed.position.x - 3, 0, gameplayDetails.runwayWidth * 3 + gameplayDetails.runwayOffset * 3, gameplayDetails.position.y - 1)
 }
 
-function spawnDisk(id) {
+function spawnDisk(id: string) {
     let columnPosX
     let runwayBonusState = false
 
@@ -205,30 +205,30 @@ window.addEventListener('keypress', (event) => {
         switch (event.key) {
 
             // Game Dev buttons
-        case '1':
-            spawnDisk('red')
-            break;
-        case '2':
-            spawnDisk('green')
-            break;
-        case '3':
-            spawnDisk('blue')
-            break;
-        case '4':
-            runwayDiskSpawner('red')
-            break;
-        case '5':
-            runwayDiskSpawner('green')
-            break;
-        case '6':
-            runwayDiskSpawner('blue')
-            break;
-        case '0':
-            randomDiskSpawner()
-            break;
-        case ' ':
-            gameManager.startGame()
-            break;
+            case '1':
+                spawnDisk('red')
+                break;
+            case '2':
+                spawnDisk('green')
+                break;
+            case '3':
+                spawnDisk('blue')
+                break;
+            case '4':
+                runwayDiskSpawner('red')
+                break;
+            case '5':
+                runwayDiskSpawner('green')
+                break;
+            case '6':
+                runwayDiskSpawner('blue')
+                break;
+            case '0':
+                randomDiskSpawner()
+                break;
+            case ' ':
+                gameManager.startGame()
+                break;
 
         }
     }
