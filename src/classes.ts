@@ -108,7 +108,7 @@ class Runway extends Sprite {
     activatBonusState(): void {
         this.bonusState = true
         this.strokeStrength = 5
-        this.bonusDurationID = setInterval(() => {
+        this.bonusDurationID = setInterval((): void => {
             this.powerBar -= 0.1
             if (this.powerBar <= 0) {
                 this.powerBar = 0
@@ -338,7 +338,7 @@ class Timer {
     beginTimer(): void {
         this.currentTime = this.maxTime
         this.timeRemainingFraction = this.currentTime / this.maxTime
-        this.currentTimerId = setInterval(() => {
+        this.currentTimerId = setInterval((): void => {
             this.currentTime -= 0.01
             if (this.currentTime <= 0) {
                 this.endTimer()
